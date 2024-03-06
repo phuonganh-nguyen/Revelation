@@ -1,0 +1,94 @@
+<?php 
+//bao gồm một tệp PHP khác vào tệp hiện tại
+    include '../component/connect.php';
+    if (isset($_COOKIE['admin_id'])) {
+        $admin_id = $_COOKIE['admin_id'];
+    } else {
+        $admin_id = '';
+        header('location:login.php');
+    }
+
+    //delete product
+    if (isset($_POST['delete'])) {
+        $p_id = $_POST['product_id'];
+
+        $delete_product = $conn->prepare("DELETE FROM `sanpham` where sanpham_id=?");
+        $delete_product->execute([$p_id]);
+
+        $success_msg[] = 'Sản phẩm đã được xóa thành công!';
+    }
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Beauty - Product display page</title>
+    <link rel="shortcut icon" href="../images/logo.png" type="image/vnd.microsoft.icon">
+    <link rel="stylesheet" type="text/css" href="../css/admin_style.css?v = <?php echo time(); ?>">
+</head>
+<body>
+    
+    <div class="main-container">
+        <?php include '../component/admin_header.php'; ?>
+        <section class="show-post">
+            <form action="adsh_active.php" method="post" class="search-form"> 
+                <input type="text" name="search_product" placeholder="Tìm kiếm sản phẩm" required maxlength="100">
+                <button type="submit" class="fas fa-search" id="search_product_btn"></button>
+            </form>
+            <div class="heading">
+                <h1>Sản phẩm đang hoạt động</h1>
+                <!-- <img src="../images/justlogo2.png" width="120"> -->
+            </div>
+            <div class="box-container">
+                <?php
+                    $select_products = $conn->prepare("SELECT *FROM `sanpham` WHERE trangthai=?");
+                    $select_products->execute(['Đang hoạt động']);
+                    if($select_products->rowCount()>0) {
+                        while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
+
+                    
+                ?>
+                <form action="" method="post" class="box">
+                    <input type="hidden" name="product_id" value="<?=$fetch_products['sanpham_id']; ?>">
+                    <?php if($fetch_products['image'] != '') { ?>
+                        <img src="../uploaded_files/<?= $fetch_products['image']; ?>" class="image">
+                        <?php } ?>
+                        <div class="status" style="color: <?php if($fetch_products['trangthai'] == 'Đang hoạt động') {
+                            echo "limegreen";}else{echo "coral";} ?>"><?= $fetch_products['trangthai'];?></div>
+                        <div class="price"><?= $fetch_products['price']; ?>VNĐ</div>
+                        <div class="content">
+                            <!-- <img src="../images/logo.png" class="shap"> -->
+                            <div class="title"><?= $fetch_products['name']; ?></div>
+                            <div class="sl">Số lượng: <?= $fetch_products['soluong']; ?></div>
+                            <div class="flex-btn">
+                                <a href="edit_product.php?id=<?=$fetch_products['sanpham_id']; ?>" class="btn">Sửa</a>
+                                <button type="submit" name="delete" class="btn" onclick="return confirm('delete this product');">Xóa</button>
+                                <a href="read_product.php?post_id=<?=$fetch_products['sanpham_id']; ?>" class="btn">Chi tiết</a>
+                            </div>
+                        </div>
+                </form>
+                <?php 
+                        }
+                    } else{
+                        echo '
+                            <div class="empty">
+                                <p>Chưa có sản phẩm nào được thêm vào! <br> <a href="add_product.php"
+                                    class="btn" style="margin-top: 1.5rem;line-hight:2;">add products </a> </p>
+                            </div>
+                        ';
+                    }
+                
+                ?>
+            </div>
+        </section>
+    </div>
+
+    <!-- <script src="http://cdnjs.cloudflare.com/ajax.libs/sweetalert/2.1.2/sweetalert.min.js"></script> -->
+    <script src="../js/admin_script.js"></script>
+    <script src="../js/sweetalert.js"></script>
+    <?php include '../component/alert.php'; ?>
+</body>
+</html>
