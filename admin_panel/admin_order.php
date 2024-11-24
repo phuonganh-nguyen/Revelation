@@ -1,28 +1,26 @@
 <?php 
 //bao gồm một tệp PHP khác vào tệp hiện tại
     include '../component/connect.php';
-    if (isset($_COOKIE['admin_id'])) {
-        $admin_id = $_COOKIE['admin_id'];
+    if (isset($_COOKIE['user_id'])) {
+        $user_id = $_COOKIE['user_id'];
     } else {
-        $admin_id = '';
-        header('location:login.php');
+        $user_id = '';
+        header('location:../login.php');
     }
 
     //update order from database
     if (isset($_POST['update_order'])) {
         $hoadon_id = $_POST['hoadon_id'];
-        $update_payment = $_POST['update_payment'];
-        $update_pay = $conn->prepare("UPDATE `hoadon` SET tinhtrangthanhtoan=? WHERE hoadon_id=?");
-        $update_pay->execute([$update_payment, $hoadon_id]);
-
-        $new_status = $_POST['update_payment'];
-        $update_status = $conn->prepare("UPDATE `hoadon` SET trangthai=? WHERE hoadon_id=?");
-        if ($update_payment == 'Xác nhận'){
-            $update_status->execute(['Đã xác nhận', $hoadon_id]);
-        } elseif ($update_payment == 'Giao hàng'){
-            $update_status->execute(['Đang giao hàng', $hoadon_id]);
+        $new_status = $_POST['update_status']; // Lấy giá trị của trạng thái mới từ biểu mẫu
+        if($new_status == 'Xác nhận'){
+            $status = 'Đã xác nhận';
+        }elseif ($new_status == 'Giao hàng') {
+            $status = 'Đang giao hàng';
         }
-        
+        // Cập nhật trạng thái của đơn hàng trong cơ sở dữ liệu
+        $update_status = $conn->prepare("UPDATE `hoadon` SET trangthai=? WHERE hoadon_id=?");
+        $update_status->execute([$status, $hoadon_id]);
+
         $success_msg[] = 'Trạng thái đơn hàng đã được cập nhật';
     }
 
@@ -42,98 +40,153 @@
     }
 ?> 
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secret Beauty - Admin message</title>
-    <link rel="shortcut icon" href="../images/logo.png" type="image/vnd.microsoft.icon">
+    <title>révélation - Admin order</title>
+    <link rel="shortcut icon" href="../images/logo1.png" type="image/vnd.microsoft.icon">
     <link rel="stylesheet" type="text/css" href="../css/admin_style.css?v = <?php echo time(); ?>">
-    <!--liên kết đến tệp CSS all.min.css của Font Awesome, được sử dụng để thêm các biểu tượng vào trang web.-->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body>
-    
+<body id="acc-page"> 
     <div class="main-container">
-        <?php include '../component/admin_header.php'; ?>
-        <section class="order-container">
-            <form action="search_order.php" method="post" class="search-form"> 
-                    <input type="text" name="search_order" placeholder="Tìm kiếm hóa đơn" required maxlength="100">
-                    <button type="submit" class="fas fa-search" id="search_product_btn"></button>
-            </form>
-            <div class="heading">
-                <h1>Tổng số đơn hàng</h1>
-                <!-- <img src="../images/justlogo2.png" width="120"> -->
+        <?php include '../component/admin_header.php'; ?> 
+        <section class="user-container">
+            <div class="heading-search" style="margin-bottom: -1rem;">
+                <div>
+                    <h1>Danh sách đơn hàng</h1>
+                    <div class="order-filter">
+                        <h3>Trạng thái</h3>
+                        <div class="filter-pending">
+                            <select name="type" onchange="filterOrders(this.value)"> 
+                                <option value="Tất cả">Tất cả</option>
+                                <option value="Chờ xác nhận">Chờ xác nhận</option>
+                                <option value="Đóng hàng">Đóng hàng</option>
+                                <option value="Đang giao hàng">Đang giao hàng</option>
+                                <option value="Đã nhận hàng">Đã nhận hàng</option>
+                                <option value="Đã hủy">Đã hủy</option>
+                            </select>
+                        </div>
+                    </div>                   
+                </div>
+                <form action="javascript:void(0);" method="post" class="search-form">
+                    <input type="text" name="search_bill" placeholder="ID đơn, người nhận, ngày" required maxlength="100">
+                    <button type="submit" class="bi bi-search" id="search_product_btn"></button>
+                </form>
             </div>
             <div class="box-container">
-                <?php
-                    $select_order = $conn->prepare("SELECT * FROM `hoadon`");
-                    $select_order->execute();
+                <div class="box order">
+                    <table border="1" cellpadding="10" cellspacing="0" style="width:100%; text-align: left;">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Ngày đặt</th> 
+                                <th>ID đơn hàng</th>
+                                <th>ID KH</th>
+                                <th>Người nhận</th>
+                                <th>Tổng thanh toán</th>
+                                <th>Trạng thái</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                            // Truy vấn lấy danh sách đơn hàng
+                            $select_orders = $conn->prepare("SELECT b.bill_id, b.hoadon_id, b.user_id, b.name, b.tongthanhtoan, b.trangthai, b.ngaydat FROM bill b JOIN user u ON b.user_id = u.user_id WHERE b.hienthi = 1 ORDER BY b.ngaydat DESC");
+                            $select_orders->execute();
 
-                    if ($select_order->rowCount()>0) {
-                        while ($fetch_order = $select_order->fetch(PDO::FETCH_ASSOC)) {
-                        
-                ?>
-                <div class="box">
-                    <div class="status" style="color: <?php 
-                        if($fetch_order['trangthai'] == 'Chờ xác nhận') {echo "orange";}
-                        elseif($fetch_order['trangthai'] == 'Đã xác nhận' || $fetch_order['trangthai'] == 'Đang giao hàng') {echo "limegreen";} 
-                        else {echo "red";}?>">
-                        <?= $fetch_order['trangthai']; ?>
-                    </div>
-                    <div class="details">
-                        <p>ID đơn hàng: <span><?= $fetch_order['hoadon_id']; ?></span></p>
-                        <p>ID sản phẩm: <span><?= $fetch_order['sanpham_id']; ?></span></p>
-                        <p>ID khách: <span><?= $fetch_order['user_id']; ?></span></p>
-                        <p>Tên người nhận: <span style="text-transform: capitalize;"><?= $fetch_order['name']; ?></span></p>
-                        <p>Ngày đặt: <span><?= $fetch_order['ngaydat']; ?></span></p>
-                        <p>Số điện thoại: <span>+84<?= $fetch_order['phone']; ?></span></p>
-                        <p>Tổng số tiền: <span><?= $fetch_order['price']; ?> x <?=$fetch_order['qty']; ?></span></p>
-                        <p>Phương thức thanh toán: <span><?= $fetch_order['phuongthucthanhtoan']; ?></span></p>
-                        <p>Địa chỉ: <span style="text-transform: capitalize;"><?= $fetch_order['address']; ?></span></p>
-                    </div> 
-                    <form action="" method="post">
-                        <?php if ($fetch_order['trangthai'] == 'Chờ xác nhận' || $fetch_order['trangthai'] == 'Đã xác nhận') {?>
-                            <input type="hidden" name="hoadon_id" value="<?= $fetch_order['hoadon_id']; ?>">
-                            <select name="update_payment" class="box" style="width: 90%;">
-                                <option disabled selected>
-                                    <?= $fetch_order['tinhtrangthanhtoan']; ?>  
-                                </option>
-                                <option value="Chờ xác nhận">Chờ xác nhận</option>
-                                <option value="Xác nhận">Xác nhận</option>
-                                <option value="Giao hàng">Giao hàng</option>
-                            </select>
-                            <div class="flex-btn">                            
-                                <input type="submit" name="update_order" value="Cập nhật đơn hàng" class="btn">
-                                <input type="submit" name="delete_order" value="Xóa" class="btn">
-                            </div>
-                        
-                        <?php } else {?>
-                            <input type="hidden" name="hoadon_id" value="<?= $fetch_order['hoadon_id']; ?>">
-                            
-                            <div class="flex-btn">                            
-                                <input type="submit" name="delete_order" value="Xóa" class="btn">
-                            </div>
-                        <?php } ?>
-                    </form>
+                            if ($select_orders->rowCount() > 0) {
+                                $stt = 1; // Khởi tạo số thứ tự
+                                while ($fetch_order = $select_orders->fetch(PDO::FETCH_ASSOC)){
+                                    ?>
+                                    <tr onclick="window.location.href='detail_order.php?get_id=<?= $fetch_order['bill_id']?>'">
+                                        <td><?= $stt++; ?></td> <!-- In số thứ tự -->
+                                        <td><?= date('H:i d/m/Y', strtotime($fetch_order['ngaydat'])); ?></td> <!-- Ngày đặt -->
+                                        <td>#<?= $fetch_order['bill_id']; ?></td>
+                                        <td>#<?= $fetch_order['user_id']; ?></td>
+                                        <td style="text-transform: capitalize;"><?= htmlspecialchars($fetch_order['name']); ?></td>
+                                        <td><?= number_format($fetch_order['tongthanhtoan'], 0, ',', '.'); ?> VNĐ</td>
+                                        <td><?= htmlspecialchars($fetch_order['trangthai']); ?></td>
+                                        
+                                    </tr>
+                                    <?php
+                                }
+                            } else {
+                                echo '
+                                    <tr>
+                                        <td colspan="8" style="text-align: center;">Không có đơn hàng nào!</td>
+                                    </tr>
+                                ';
+                            }
+                        ?>
+                        </tbody>
+                    </table>
                 </div>
-                <?php
-                        }
-                    }else{
-                        echo '
-                            <div class="empty">
-                                <p>Chưa có đơn hàng nào</p>
-                            </div>
-                        ';
-                    }
-                ?>
             </div>
-
         </section>
     </div>
+    <script>
+        // Hàm tìm kiếm đơn hàng
+        function searchOrder() {
+            const searchTerm = document.querySelector('input[name="search_bill"]').value.toLowerCase();
+            const rows = document.querySelectorAll('tbody tr'); // Lấy tất cả các hàng trong bảng
+            let found = false; // Biến để kiểm tra xem có tìm thấy kết quả không
 
-    <!-- <script src="http://cdnjs.cloudflare.com/ajax.libs/sweetalert/2.1.2/sweetalert.min.js"></script> -->
+            rows.forEach((row) => {
+                const columns = row.querySelectorAll('td'); // Lấy tất cả các cột trong hàng
+                let match = false; // Biến để kiểm tra nếu hàng này khớp với từ khóa tìm kiếm
+
+                // Kiểm tra từng cột trong hàng
+                columns.forEach((column) => {
+                    if (column.textContent.toLowerCase().includes(searchTerm)) {
+                        match = true; // Nếu tìm thấy, đặt biến match là true
+                    }
+                });
+
+                // Hiển thị hoặc ẩn hàng dựa trên kết quả tìm kiếm
+                if (match) {
+                    row.style.display = ''; // Hiển thị hàng
+                    found = true; // Đặt biến found là true
+                } else {
+                    row.style.display = 'none'; // Ẩn hàng
+                }
+            });
+
+            if (!found) {
+                alert('Không tìm thấy đơn hàng!'); // Thông báo nếu không tìm thấy
+            }
+        }
+
+        // Gắn sự kiện submit vào form tìm kiếm
+        document.querySelector('.search-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Ngăn chặn việc gửi form thông thường
+            searchOrder(); // Gọi hàm tìm kiếm
+        });
+
+    </script>
+    <script>
+    // Hàm lọc đơn hàng theo trạng thái
+    function filterOrders(status) {
+        const rows = document.querySelectorAll('tbody tr'); // Lấy tất cả các hàng trong bảng
+
+        rows.forEach(row => {
+            const statusColumn = row.querySelector('td:nth-child(7)'); // Cột trạng thái (thứ 7 trong bảng)
+            if (status === 'Tất cả' || statusColumn.textContent.trim() === status) {
+                row.style.display = ''; // Hiển thị hàng
+            } else {
+                row.style.display = 'none'; // Ẩn hàng
+            }
+        });
+    }
+
+    // Gắn sự kiện onchange vào dropdown (nếu chưa có trong HTML)
+    document.querySelector('select[name="type"]').addEventListener('change', function() {
+        filterOrders(this.value);
+    });
+</script>
+
     <script src="../js/admin_script.js"></script>
     <script src="../js/sweetalert.js"></script>
     <?php include '../component/alert.php'; ?>

@@ -1,16 +1,16 @@
 <?php 
 //bao gồm một tệp PHP khác vào tệp hiện tại
     include '../component/connect.php';
-    if (isset($_COOKIE['admin_id'])) {
-        $admin_id = $_COOKIE['admin_id'];
+    if (isset($_COOKIE['user_id'])) {
+        $user_id = $_COOKIE['user_id'];
     } else {
-        $admin_id = 'location:login.php';
-        // header('location:login.php');
+        $user_id = '';
+        header('location:../login.php');
     }
 
     if (isset($_POST['submit'])) {
         $select_admin = $conn->prepare("SELECT * FROM `admin` WHERE admin_id=? LIMIT 1");
-        $select_admin->execute([$admin_id]);
+        $select_admin->execute([$user_id]);
         $fetch_admin = $select_admin->fetch(PDO::FETCH_ASSOC);
 
         $prev_pass = $fetch_admin['pass'];
@@ -20,19 +20,19 @@
         //name
         if (!empty($name)) {
             $update_name = $conn->prepare("UPDATE `admin` SET name=? WHERE admin_id=?");
-            $update_name->execute([$name, $admin_id]);
+            $update_name->execute([$name, $user_id]);
             $success_msg[] = 'Tên được cập nhật thành công';
         }
 
         //email
         if (!empty($email)) {
             $select_email = $conn->prepare("SELECT * FROM `admin` WHERE admin_id=? AND email=?");
-            $select_email->execute([$admin_id, $email]);
+            $select_email->execute([$user_id, $email]);
             if($select_email->rowCount()>0) {
                 $warning_msg[] = 'Email đã tồn tại';
             } else {
                 $update_email = $conn->prepare("UPDATE `admin` SET email=? WHERE admin_id=?");
-                $update_email->execute([$email, $admin_id]);
+                $update_email->execute([$email, $user_id]);
                 $success_msg[] = 'Email được cập nhật thành công';
             }
             
@@ -51,7 +51,7 @@
                 $warning_msg[] = 'Mật khẩu xác nhận không khớp';
             } else {
                 $update_pass = $conn->prepare("UPDATE `admin` SET pass=? WHERE admin_id=?");
-                $update_pass->execute([$cpass, $admin_id]);
+                $update_pass->execute([$cpass, $user_id]);
                 $success_msg[] = 'Mật khẩu được cập nhật thành công';
             }
         }
@@ -81,11 +81,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secret Beauty - Admin profile page</title>
-    <link rel="shortcut icon" href="../images/logo.png" type="image/vnd.microsoft.icon">
+    <title>révélation - Admin profile page</title>
+    <link rel="shortcut icon" href="../images/logo1.png" type="image/vnd.microsoft.icon">
     <link rel="stylesheet" type="text/css" href="../css/admin_style.css?v = <?php echo time(); ?>">
-    <!--liên kết đến tệp CSS all.min.css của Font Awesome, được sử dụng để thêm các biểu tượng vào trang web.-->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    
 </head>
 <body>
     

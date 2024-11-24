@@ -1,8 +1,8 @@
 <?php 
     include 'component/connect.php';
 
-    if (isset($_COOKIE['user_id'])) {
-        $user_id = $_COOKIE['user_id'];
+    if (isset($_COOKIE['khach_id'])) {
+        $user_id = $_COOKIE['khach_id'];
     } else{
         $user_id = '';
         header('location:login.php');
@@ -62,72 +62,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secrect Beauty - Checkout page</title>
-    <link rel="shortcut icon" href="images/logo.png" type="image/vnd.microsoft.icon">
+    <title>révélation - Checkout page</title>
+    <link rel="shortcut icon" href="images/logo1.png" type="image/vnd.microsoft.icon">
     <link rel="stylesheet" type="text/css" href="css/user_style.css?v = <?php echo time(); ?>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
     <?php include 'component/user_header.php' ?>
+    
     <div class="checkout">
         <div class="heading">
             <h1>Thanh toán</h1>
         </div>
+        <div class="container">
+            <!-- Responsive Arrow Progress Bar -->
+            <div class="arrow-steps clearfix">
+                <div class="step current"> <span> <a href="checkout.php" >Thanh toán</a></span> </div>
+                <div class="step"> <span><a href="vanchuyen.php" >Vận chuyển</a></span> </div>
+                <div class="step"> <span><a href="thongtinthanhtoan.php" >Thông tin thanh toán</a><span> </div>
+                <div class="step"> <span><a href="chitietdonhang.php" >Chi tiết đơn hàng</a><span> </div>
+            </div>
+        </div>
         <div class="row">
-            <form action="" method="post" class="register" style="margin-bottom: -1rem;">
-                <input type="hidden" name="p_id" value="<?= $get_id; ?>">
-                <h3>Chi tiết thanh toán</h3>
-                <div class="flex">
-                    <div class="box">
-                        <div class="input-field">
-                            <p>Họ và tên <span>*</span></p>
-                            <input type="text" name="name" required maxlength="50" placeholder="Nhập họ và tên" class="input">
-                        </div>
-                        <div class="input-field">
-                            <p>Số điện thoại <span>*</span></p>
-                            <input type="number" name="number" required maxlength="10" placeholder="Nhập số điện thoại" class="input">
-                        </div>
-                        <!-- <div class="input-field">
-                            <p>Email <span>*</span></p>
-                            <input type="type" name="email" required maxlength="50" placeholder="Nhập email" class="input">
-                        </div> -->
-                        <div class="input-field">
-                            <p>Phương thức thanh toán <span>*</span></p>
-                            <select name="method" class="input">
-                                <option value="Thanh toán khi nhận hàng">Thanh toán khi nhận hàng</option>
-                                <option value="Ví điện tử">Ví điện tử</option>
-                                <option value="ATM card (thẻ nội địa)">ATM card (thẻ nội địa)</option>
-                            </select>
-                        </div>
-                        <div class="input-field">
-                            <p>Loại địa chỉ <span>*</span></p>
-                            <select name="address_type" class="input">
-                                <option value="home">Nhà riêng</option>
-                                <option value="office">Văn phòng</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="box">
-                        <div class="input-field">
-                            <p>Tên đường, tòa nhà, số nhà <span>*</span></p>
-                            <input type="text" name="flat" required maxlength="50" placeholder="Nhập tên đường, tòa nhà, số nhà" class="input">
-                        </div>
-                        <div class="input-field">
-                            <p>Phường/Xã <span>*</span></p>
-                            <input type="text" name="phuong_xa" required maxlength="50" placeholder="Nhập Phường/Xã" class="input">
-                        </div>
-                        <div class="input-field">
-                            <p>Quận/Huyện <span>*</span></p>
-                            <input type="text" name="quan_huyen" required maxlength="50" placeholder="Nhập Quận/Huyện" class="input">
-                        </div>
-                        <div class="input-field">
-                            <p>Tỉnh/Thành phố <span>*</span></p>
-                            <input type="text" name="tinh_tp" required maxlength="50" placeholder="Nhập Tỉnh/Thành phố" class="input">
-                        </div>
-                    </div>
-                </div>
-                <input type="text" name="note" required maxlength="500" placeholder="Nhập ghi chú" class="input">
-                <button type="submit" name="place_order" class="btn">Đặt hàng</button>
-            </form>
             <div class="summary">
                 <h3>Giỏ Hàng</h3>
                 <div class="box-container">
@@ -167,8 +123,8 @@
                     <div class="flex">
                         <img src="uploaded_files/<?= $fetch_products['image']; ?>" class="image">
                         <div>
-                            <h3 class="name"><a href="view_page.php?pid=<?= $fetch_products['sanpham_id']?>" class="name"><?= $fetch_products['name']?></a></h3>
-                            <p class="price"><?= $fetch_products['price']; ?> x <?= $fetch_cart['qty']; ?></p>
+                            <h3 class="name"><a href="view_page.php?pid=<?= $fetch_products['sanpham_id']?>" class="name"><?= $fetch_products['name']?> (<?= $fetch_cart['size']; ?>)</a></h3>
+                            <p class="price"><?= number_format($fetch_products['price'], 0, ',', '.'); ?> x <?= $fetch_cart['qty']; ?></p>
                         </div>
                     </div>
                     <?php
@@ -180,13 +136,113 @@
                     ?>
                 </div>
                 <div class="grand-total"><span>Tổng thanh toán: </span> 
-                    <p><?= $grand_total;?>VNĐ</p>
-                </div>
+                    <p><?= number_format($grand_total, 0, ',', '.');?>VNĐ</p>
+                </div> 
                 
             </div>
+            <form action="" method="post" class="register" style="margin-bottom: -1rem;">
+                <input type="hidden" name="p_id" value="<?= $get_id; ?>">
+                <h3>Chi tiết thanh toán</h3>
+                <div class="flex">
+                    <div class="box">
+                        <div class="input-field">
+                            <p>Họ và tên <span>*</span></p>
+                            <input type="text" name="name" required maxlength="50" placeholder="Nhập họ và tên" class="input">
+                        </div>
+                        <div class="input-field">
+                            <p>Số điện thoại <span>*</span></p>
+                            <input type="number" name="number" required maxlength="10" placeholder="Nhập số điện thoại" class="input">
+                        </div>
+                        <!-- <div class="input-field">
+                            <p>Email <span>*</span></p>
+                            <input type="type" name="email" required maxlength="50" placeholder="Nhập email" class="input">
+                        </div> -->
+                        <!-- <div class="input-field">
+                            <p>Phương thức thanh toán <span>*</span></p>
+                            <select name="method" class="input">
+                                <option value="Thanh toán khi nhận hàng">Thanh toán khi nhận hàng</option>
+                                <option value="Ví điện tử">Ví điện tử</option>
+                                <option value="ATM card (thẻ nội địa)">ATM card (thẻ nội địa)</option>
+                            </select>
+                        </div> -->
+                        <div class="input-field">
+                            <p>Loại địa chỉ <span>*</span></p>
+                            <select name="address_type" class="input">
+                                <option value="home">Nhà riêng</option>
+                                <option value="office">Văn phòng</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="input-field">
+                            <p>Tên đường, tòa nhà, số nhà <span>*</span></p>
+                            <input type="text" name="flat" required maxlength="50" placeholder="Nhập tên đường, tòa nhà, số nhà" class="input">
+                        </div>
+                        <div class="input-field">
+                            <p>Phường/Xã <span>*</span></p>
+                            <input type="text" name="phuong_xa" required maxlength="50" placeholder="Nhập Phường/Xã" class="input">
+                        </div>
+                        <div class="input-field">
+                            <p>Quận/Huyện <span>*</span></p>
+                            <input type="text" name="quan_huyen" required maxlength="50" placeholder="Nhập Quận/Huyện" class="input">
+                        </div>
+                        <div class="input-field">
+                            <p>Tỉnh/Thành phố <span>*</span></p>
+                            <input type="text" name="tinh_tp" required maxlength="50" placeholder="Nhập Tỉnh/Thành phố" class="input">
+                        </div>
+                    </div>
+                </div>
+                <input type="text" name="note" required maxlength="500" placeholder="Nhập ghi chú" class="input">
+                <!-- <div>
+                    <p>Phương thức thanh toán</p>
+                    <button>Thanh toán khi nhận hàng</button>
+                    <button>Thanh toán qua MOMO</button>
+                    <button>Thanh toán bằng ATM card (thẻ nội địa)</button>
+                </div> -->
+                <button type="submit" name="place_order" class="btn">Đặt hàng</button>
+            </form>
+            <form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded"
+                          action="../web/thanhtoan/xulythanhtoanmomo.php">
+                <input type="submit" name="momo" value="Thanh toán MOMO QRcode" class="btn btn-danger">
+            </form>
+
+            <form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded"
+                          action="../web/thanhtoan/xulythanhtoanmomo_atm.php">
+                <input type="submit" name="momo" value="Thanh toán MOMO" class="btn btn-danger">
+            </form>
+            
         </div>
     </div>
+    
 
+    <!-- <script>
+        $(document).ready(function() {
+
+            var back = $(".prev");
+            var next = $(".next");
+            var steps = $(".step");
+
+            next.bind("click", function() {
+            $.each(steps, function(i) {
+                if (!$(steps[i]).hasClass('current') && !$(steps[i]).hasClass('done')) {
+                $(steps[i]).addClass('current');
+                $(steps[i - 1]).removeClass('current').addClass('done');
+                return false;
+                }
+            })
+            });
+            back.bind("click", function() {
+            $.each(steps, function(i) {
+                if ($(steps[i]).hasClass('done') && $(steps[i + 1]).hasClass('current')) {
+                $(steps[i + 1]).removeClass('current');
+                $(steps[i]).removeClass('done').addClass('current');
+                return false;
+                }
+            })
+            });
+
+            })
+    </script> -->
     <!--liên kết đến tệp JavaScript sweetalert.min.js, được sử dụng để hiển thị các thông báo cảnh báo.-->
     <!-- <script src="http://cdnjs.cloudflare.com/ajax.libs/sweetalert/2.1.2/sweetalert.min.js"></script> -->
     <!--liên kết đến tệp JavaScript script.js, được sử dụng để chứa mã JavaScript tùy chỉnh của trang web.-->

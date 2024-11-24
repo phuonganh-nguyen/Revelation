@@ -1,5 +1,5 @@
 <?php 
-    $db_name = 'mysql:host=localhost;dbname=secretbeauty';
+    $db_name = 'mysql:host=localhost;dbname=enchantelle';
     $user_name = 'root';
     $user_password = '';
 
@@ -16,7 +16,7 @@
     //Hàm này trả về một chuỗi mã định danh duy nhất bao gồm 20 ký tự ngẫu nhiên
     
     
-    function unique_id() {
+    function userid() {
         $chars = '-*@123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charLength = strlen($chars); //gán độ dài chuỗi chars
         $randomString = '';
@@ -25,7 +25,7 @@
         }
         return $randomString;
     }
-    $uni = unique_id();
+    $uni = userid();
 
     function sp_id() {
         $chars = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -38,5 +38,15 @@
     }
     $sp = sp_id();
 
+    function order_id() {
+        $chars = '123456789abcdefghijklmnopqrstuvwxyz';
+        $charLength = strlen($chars); //gán độ dài chuỗi chars
+        $randomString = '';
+        for ($i=0; $i<10; $i++){
+            $randomString .= $chars[mt_rand(0, $charLength-1)];
+        }
+        return $randomString;
+    }
+    $sp = order_id();
 
 ?>

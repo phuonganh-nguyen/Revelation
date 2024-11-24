@@ -1,11 +1,11 @@
 <?php 
 //bao gồm một tệp PHP khác vào tệp hiện tại
     include '../component/connect.php';
-    if (isset($_COOKIE['admin_id'])) {
-        $admin_id = $_COOKIE['admin_id'];
+    if (isset($_COOKIE['user_id'])) {
+        $user_id = $_COOKIE['user_id'];
     } else {
-        $admin_id = '';
-        header('location:login.php');
+        $user_id = '';
+        header('location:../login.php');
     }
 
     if (isset($_POST['submit'])) {
@@ -18,7 +18,7 @@
         move_uploaded_file($_FILES['image']['tmp_name'], $image_path);
         
         // hàm binary phân biệt dấu sắc hỏi ngã nặng
-        $select_type = $conn->prepare("SELECT * FROM `danhmuc` WHERE BINARY ten_danhmuc = ?");
+        $select_type = $conn->prepare("SELECT * FROM `danhmuc` WHERE BINARY name = ?");
         $select_type->execute([$ten_danhmuc]);
 
         if ($select_type->rowCount() > 0) {
@@ -26,7 +26,7 @@
             $warning_msg[] = 'Danh mục đã tồn tại';
         } else {
             // Thêm danh mục mới vào cơ sở dữ liệu
-            $insert_type = $conn->prepare("INSERT INTO `danhmuc`(danhmuc_id, ten_danhmuc, image) VALUES (?, ?, ?)");
+            $insert_type = $conn->prepare("INSERT INTO `danhmuc`(danhmuc_id, name, image) VALUES (?,?, ?)");
             $insert_type->execute([$danhmuc_id, $ten_danhmuc, $image_name]);
 
             $success_msg[] = 'Thêm danh mục thành công!';
@@ -38,7 +38,7 @@
         $ten_danhmuc = $_POST['ten_danhmuc']; // Lấy tên danh mục từ form
 
         // Kiểm tra xem tên danh mục đã tồn tại hay chưa
-        $select_type = $conn->prepare("SELECT * FROM `danhmuc` WHERE BINARY ten_danhmuc=? AND danhmuc_id<>?");
+        $select_type = $conn->prepare("SELECT * FROM `danhmuc` WHERE BINARY name=? AND danhmuc_id<>?");
         $select_type->execute([$ten_danhmuc, $danhmuc_id]);
 
         if ($select_type->rowCount() > 0) {
@@ -46,7 +46,7 @@
             $warning_msg[] = 'Danh mục đã tồn tại';
         } else {
             // Cập nhật tên danh mục vào cơ sở dữ liệu
-            $update_type = $conn->prepare("UPDATE `danhmuc` SET ten_danhmuc=? WHERE danhmuc_id=?");
+            $update_type = $conn->prepare("UPDATE `danhmuc` SET name=? WHERE danhmuc_id=?");
             $update_type->execute([$ten_danhmuc, $danhmuc_id]);
 
             $success_msg[] = 'Cập nhật danh mục thành công!';
@@ -79,13 +79,13 @@
         $image_path = $image_dir . $image_name; // Đường dẫn đầy đủ đến tệp ảnh
 
         move_uploaded_file($_FILES['image']['tmp_name'], $image_path);
-        $select_brand = $conn->prepare("SELECT * FROM `thuonghieu` WHERE BINARY ten_thuonghieu = ?");
+        $select_brand = $conn->prepare("SELECT * FROM `thuonghieu` WHERE BINARY name = ?");
         $select_brand->execute([$ten_thuonghieu]);
 
         if ($select_brand->rowCount() > 0) {
             $warning_msg[] = 'Thương hiệu đã tồn tại';
         } else {
-            $insert_brand = $conn->prepare("INSERT INTO `thuonghieu` (thuonghieu_id, ten_thuonghieu, image) VALUES (?, ?, ?)");
+            $insert_brand = $conn->prepare("INSERT INTO `thuonghieu` (thuonghieu_id, name, image) VALUES (?, ?, ?)");
             $insert_brand->execute([$brand_id, $ten_thuonghieu, $image_name]);
 
             $success_msg[] = 'Thêm thương hiệu thành công!';
@@ -96,13 +96,13 @@
         $brand_id = $_POST['thuonghieu_id'];
         $ten_thuonghieu = $_POST['ten_thuonghieu'];
 
-        $select_brand = $conn->prepare("SELECT * FROM `thuonghieu` WHERE BINARY ten_thuonghieu=? AND thuonghieu_id<>?");
+        $select_brand = $conn->prepare("SELECT * FROM `thuonghieu` WHERE BINARY name=? AND thuonghieu_id<>?");
         $select_brand->execute([$ten_thuonghieu, $brand_id]);
 
         if ($select_brand->rowCount() > 0) {
             $warning_msg[] = 'Thương hiệu đã tồn tại';
         } else {
-            $update_brand = $conn->prepare("UPDATE `thuonghieu` SET ten_thuonghieu=? WHERE thuonghieu_id=?");
+            $update_brand = $conn->prepare("UPDATE `thuonghieu` SET name=? WHERE thuonghieu_id=?");
             $update_brand->execute([$ten_thuonghieu, $brand_id]);
 
             $success_msg[] = 'Cập nhật thương hiệu thành công!';
@@ -128,11 +128,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secret Beauty - Admin category and brand pages</title>
-    <link rel="shortcut icon" href="../images/logo.png" type="image/vnd.microsoft.icon">
+    <title>révélation - Admin category and brand pages</title>
+    <link rel="shortcut icon" href="../images/logo1.png" type="image/vnd.microsoft.icon">
     <link rel="stylesheet" type="text/css" href="../css/admin_style.css?v = <?php echo time(); ?>">
-    <!--liên kết đến tệp CSS all.min.css của Font Awesome, được sử dụng để thêm các biểu tượng vào trang web.-->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    
 </head>
 <body>
     
@@ -158,9 +158,9 @@
                             <div class="edit_type">
                                     <form method="post" action="">
                                         <div>
-                                            <img src="../uploaded_files/<?= $fetch_type['image']; ?>" alt="">
+                                            <!-- <img src="../uploaded_files/<?= $fetch_type['image']; ?>" alt=""> -->
                                             <input type="hidden" name="danhmuc_id" value="<?= $fetch_type['danhmuc_id']; ?>">
-                                            <input type="text" name="ten_danhmuc" value="<?= $fetch_type['ten_danhmuc'];?>" class="small-box">
+                                            <input type="text" name="ten_danhmuc" value="<?= $fetch_type['name'];?>" style="text-transform: uppercase;" class="small-box">
                                             <input type="submit" name="edit" value="Cập nhật" class="btn" style="padding: .5rem 2rem; margin-top: 1rem;">
                                             <input type="submit" name="delete" value="Xóa" class="btn" style="padding: .5rem 2rem; margin-top: 1rem;">
                                         </div>
@@ -184,10 +184,10 @@
                                 <div class="input-field">
                                     <input type="text" name="ten_danhmuc" maxlength="100" placeholder="Nhập tên danh mục" require class="small-box">
                                 </div>
-                                <div class="input-field">
+                                <!-- <div class="input-field">
                                     <p style="font-size: 1.2rem; margin-top: 2rem;">Ảnh minh họa<span>*</span></p>
                                     <input type="file" name="image" accept="image/*" require class="box">
-                                </div>
+                                </div> -->
                                 <input type="submit" name="submit" value="Thêm" class="btn" style="padding: .5rem 2rem; margin-top: 1rem;">
                             </form>
                         </div>
@@ -195,9 +195,8 @@
                 </div>
 
 
-                <div class="heading" style="margin-top: 2rem;">
+            <!-- <div class="heading" style="margin-top: 2rem;">
                 <h1>Quản lý thương hiệu</h1>
-                <!-- <img src="../images/justlogo2.png" width="120"> -->
             </div>
                 <div class="details">
                     <div class="flex">
@@ -214,7 +213,7 @@
                                         <div>
                                             <img src="../uploaded_files/<?= $fetch_brand['image']; ?>" alt="">
                                             <input type="hidden" name="thuonghieu_id" value="<?= $fetch_brand['thuonghieu_id']; ?>">
-                                            <input type="text" name="ten_thuonghieu" value="<?= $fetch_brand['ten_thuonghieu'];?>" class="small-box">
+                                            <input type="text" name="ten_thuonghieu" value="<?= $fetch_brand['name'];?>" class="small-box">
                                             <input type="submit" name="edit-b" value="Cập nhật" class="btn" style="padding: .5rem 2rem; margin-top: 1rem;">
                                             <input type="submit" name="delete-b" value="Xóa" class="btn" style="padding: .5rem 2rem; margin-top: 1rem;">
                                         </div>
@@ -246,7 +245,7 @@
                             </form>
                         </div>
                     </div>  
-                </div>
+                </div> -->
         </section>
     </div>
 

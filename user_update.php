@@ -1,10 +1,14 @@
 <?php 
     include 'component/connect.php';
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+    require 'vendor/autoload.php';
 
-    if (isset($_COOKIE['user_id'])) {
-        $user_id = $_COOKIE['user_id'];
-    } else{
-        $user_id = 'location:login.php';
+    if (isset($_COOKIE['khach_id'])) {
+        $user_id = $_COOKIE['khach_id'];
+    } else {
+        $user_id = '';
+        header('location:login.php');
     }
 
     if (isset($_POST['submit'])) {
@@ -43,22 +47,6 @@
         $newpass = $_POST['newpass'];
         $cpass = $_POST['cpass'];
 
-        // if ($oldpass != $empty_pass) {
-        //     if ($oldpass != $prev_pass) {
-        //         $warning_msg[] = 'Mật khẩu hiện tại không khớp';
-
-        //     } elseif ($newpass != $cpass) {
-        //         $warning_msg[] = 'Mật khẩu xác nhận không khớp';
-        //     } else {
-        //         if ($newpass != $empty_pass) {
-        //             $update_pass = $conn->prepare("UPDATE `user` SET pass=? WHERE user_id=?");
-        //             $update_pass->execute([$cpass, $user_id]);
-        //             $success_msg[] = 'Mật khẩu được cập nhật thành công';
-        //         } else {
-        //             $warning_msg[] = 'Vui lòng nhập mật khẩu!';
-        //         }
-        //     }
-        // }
 
         if (!empty($oldpass) || !empty($newpass) || !empty($cpass)) {
             if ($oldpass != $prev_pass) {
@@ -72,6 +60,43 @@
             }
         }
     }
+    if (isset($_POST['forgot'])) {
+        $select_user = $conn->prepare("SELECT * FROM `user` WHERE user_id=? LIMIT 1");
+        $select_user->execute([$user_id]);
+        $fetch_user = $select_user->fetch(PDO::FETCH_ASSOC);
+        $email = $fetch_user['email'];
+        $name = $fetch_user['name'];
+        // Tạo token ngẫu nhiên
+        $token = mt_rand(100000, 999999);
+        $update_code = $conn->prepare("UPDATE `user` SET ma_quen_mk=? WHERE user_id=?");
+        $update_code->execute([$token, $user_id]);
+        // Gửi email xác nhận
+        $mail = new PHPMailer(true);
+            try {
+                // Cấu hình máy chủ
+                $mail->isSMTP();                                            // Set mailer to use SMTP
+                $mail->Host       = 'smtp.gmail.com';                   // Specify main and backup SMTP servers
+                $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                $mail->Username   = 'loverevelationshop@gmail.com';             // SMTP username
+                $mail->Password   = 'g u w j x u t f u p j m c z r p';             // SMTP passwordd
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;      // Enable TLS encryption, `ssl` also accepted
+                $mail->Port       = 587;                                   // TCP port to connect to
+                // Nội dung email
+                $mail->setFrom('loverevelationshop@gmail.com', 'RÉVÉLATION');
+                $mail->addAddress($email, htmlspecialchars($name));                          // Add a recipient
+                $mail->isHTML(true);                                       // Set email format to HTML
+                $mail->CharSet = 'UTF-8';                                  // Đặt mã hóa thành UTF-8
+                $mail->Subject = 'Đặt lại mật khẩu';
+                $mail->Body    = '<p>Chào ' . htmlspecialchars($name) . ', mã xác nhận của bạn là: <strong>' . $token . '</strong></p>';
+                $mail->Body .= '<p><a href="http://localhost/web/enter-code.php?email=' . urlencode($user_id) . '">Bấm vào liên kết này để nhập mã xác nhận</a></p>';
+
+                $mail->send();
+                header("Location: enter_code.php?email=" . urlencode($user_id));
+                exit;
+            } catch (Exception $e) {
+                $warning_msg[] = 'Không thể gửi email: ' . $mail->ErrorInfo;
+            }
+        }
 ?>
 
 <!DOCTYPE html>
@@ -79,13 +104,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secrect Beauty - Update profile page</title>
-    <link rel="shortcut icon" href="images/logo.png" type="image/vnd.microsoft.icon">
+    <title>révélation - Update profile page</title>
+    <link rel="shortcut icon" href="images/logo1.png" type="image/vnd.microsoft.icon">
     <link rel="stylesheet" type="text/css" href="css/user_style.css?v = <?php echo time(); ?>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
     <?php include 'component/user_header.php' ?>
-    <section class="form-container">
+    <section class="form-container" style="margin-top: -5rem;">
             <div class="heading">
                 <h1>Sửa hồ sơ</h1>
                 <!-- <img src="../images/justlogo2.png" width="120"> -->
@@ -103,25 +129,45 @@
                         </div>
                         <div class="input-field">
                             <p>Mật khẩu hiện tại</p>
-                            <input type="password" name="oldpass" placeholder="Nhập mật khẩu hiện tại" class="box">
+                            <div class="password-wrapper">
+                                <input type="password" name="oldpass" placeholder="Nhập mật khẩu hiện tại" class="box" id="password-input">                            <span class="toggle-password" onclick="togglePassword()">
+                                <i class="bi bi-eye-fill"></i>
+                            </div>
                         </div>
                         <div class="input-field">
                             <p>Mật khẩu mới</p>
-                            <input type="password" name="newpass" placeholder="Nhập mật khẩu mới" class="box">
+                            <div class="password-wrapper">
+                                <input type="password" name="newpass" placeholder="Nhập mật khẩu mới" class="box"id="password-input">                            <span class="toggle-password" onclick="togglePassword()">
+                                <i class="bi bi-eye-fill"></i>
+                            </div>
                         </div>
                         <div class="input-field">
                             <p>Nhập lại mật khẩu mới</p>
-                            <input type="password" name="cpass" placeholder="Nhập mật lại khẩu mới" class="box">
+                            <div class="password-wrapper">
+                                <input type="password" name="cpass" placeholder="Nhập mật lại khẩu mới" class="box"id="password-input">                            <span class="toggle-password" onclick="togglePassword()">
+                                <i class="bi bi-eye-fill"></i>
+                            </div>
                         </div>
                     </div>
-        
+                    
                 </div>
+                <p class="link">
+                    <button type="submit" name="forgot">Quên mật khẩu</button>
+                </p>
                 <input type="submit" name="submit" value="Cập nhật" class="btn">
             </form>
             
         </section>
 
+    <script>
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId || 'password-input');
+            const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+            input.setAttribute('type', type);
+            
+        }
 
+    </script>
 
 
 

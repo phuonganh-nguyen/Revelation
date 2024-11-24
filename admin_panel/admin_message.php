@@ -1,11 +1,11 @@
 <?php 
 //bao gồm một tệp PHP khác vào tệp hiện tại
     include '../component/connect.php';
-    if (isset($_COOKIE['admin_id'])) {
-        $admin_id = $_COOKIE['admin_id'];
+    if (isset($_COOKIE['user_id'])) {
+        $user_id = $_COOKIE['user_id'];
     } else {
-        $admin_id = '';
-        header('location:login.php');
+        $user_id = '';
+        header('location:../login.php');
     }
 
     //delete mess from database
@@ -30,11 +30,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secret Beauty - Admin message</title>
-    <link rel="shortcut icon" href="../images/logo.png" type="image/vnd.microsoft.icon">
+    <title>révélation - Admin message</title>
+    <link rel="shortcut icon" href="../images/logo1.png" type="image/vnd.microsoft.icon">
     <link rel="stylesheet" type="text/css" href="../css/admin_style.css?v = <?php echo time(); ?>">
-    <!--liên kết đến tệp CSS all.min.css của Font Awesome, được sử dụng để thêm các biểu tượng vào trang web.-->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    
 </head>
 <body>
     

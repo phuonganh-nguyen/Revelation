@@ -1,16 +1,17 @@
 <?php 
     include 'component/connect.php';
 
-    if (isset($_COOKIE['user_id'])) {
-        $user_id = $_COOKIE['user_id'];
+    if (isset($_COOKIE['khach_id'])) {
+        $user_id = $_COOKIE['khach_id'];
     } else {
         $user_id = '';
-        header('location:user_login.php');
+        header('location:login.php');
     }
+    $select_bill = $conn->prepare("SELECT COUNT(DISTINCT bill_id) AS total_orders FROM `bill` WHERE user_id=?");
+    $select_bill->execute([$user_id]);
+    $result = $select_bill->fetch(PDO::FETCH_ASSOC);
+    $number_of_bill = $result['total_orders'];
 
-    $select_orders = $conn->prepare("SELECT * FROM `hoadon` WHERE user_id=?");
-    $select_orders->execute([$user_id]);
-    $total_orders = $select_orders->rowCount();
 
     $select_message = $conn->prepare("SELECT * FROM `message` WHERE user_id=?");
     $select_message->execute([$user_id]);
@@ -22,9 +23,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secrect Beauty - User profile page</title>
-    <link rel="shortcut icon" href="images/logo.png" type="image/vnd.microsoft.icon">
+    <title>révélation - User profile page</title>
+    <link rel="shortcut icon" href="images/logo1.png" type="image/vnd.microsoft.icon">
     <link rel="stylesheet" type="text/css" href="css/user_style.css?v = <?php echo time(); ?>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
     <?php include 'component/user_header.php' ?>
@@ -35,13 +37,16 @@
         <div class="details">
             <div class="user">
                 <h3><?= $fetch_profile['name']; ?></h3>
+                <p>Tổng chi tiêu: <?=number_format($fetch_profile['tiendamua'], 0, ',', '.'); ?> VNĐ</p>
+                <p style="margin-bottom: 2rem;">Điểm thưởng hiện có: <?= $fetch_profile['diem']; ?></p>
+                
                 <a href="user_update.php" class="btn">Sửa hồ sơ</a>
             </div>
             <div class="box-container">
                 <div class="box">
                     <div class="flex">
                         <i class="fa-solid fa-folder-minus"></i>
-                        <h3><?= $total_orders; ?></h3>
+                        <h3><?= $number_of_bill; ?></h3>
                     </div>
                     <a href="order.php" class="btn">Xem đơn hàng</a>
                 </div>

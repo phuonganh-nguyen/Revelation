@@ -1,8 +1,8 @@
 <?php 
     include 'component/connect.php';
 
-    if (isset($_COOKIE['user_id'])) {
-        $user_id = $_COOKIE['user_id'];
+    if (isset($_COOKIE['khach_id'])) {
+        $user_id = $_COOKIE['khach_id'];
     } else{
         $user_id = '';
     }
@@ -28,9 +28,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secrect Beauty - User login page</title>
-    <link rel="shortcut icon" href="images/logo.png" type="image/vnd.microsoft.icon">
+    <title>révélation - User login page</title>
+    <link rel="shortcut icon" href="images/logo1.png" type="image/vnd.microsoft.icon">
     <link rel="stylesheet" type="text/css" href="css/user_style.css?v = <?php echo time(); ?>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
     <?php include 'component/user_header.php' ?>

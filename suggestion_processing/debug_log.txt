@@ -1,0 +1,28 @@
+Kết nối cơ sở dữ liệu thành công.
+Mô hình BERT được tải thành công.
+Mô tả người dùng: Tweed dạ Dạo phố Đông 22
+Đã lưu gợi ý sản phẩm vào recommended_products.
+Kết nối cơ sở dữ liệu thành công.
+Mô hình BERT được tải thành công.
+Mô tả người dùng: Tweed dạ Đông 0
+Đã lưu gợi ý sản phẩm vào recommended_products.
+Kết nối cơ sở dữ liệu thành công.
+Mô hình BERT được tải thành công.
+Mô tả người dùng: Dạ Hồng Đông 0
+Đã lưu gợi ý sản phẩm vào recommended_products.
+Kết nối cơ sở dữ liệu thành công.
+Mô hình BERT được tải thành công.
+Mô tả người dùng: Len 22
+Đã lưu gợi ý sản phẩm vào recommended_products.
+Kết nối cơ sở dữ liệu thành công.
+Mô hình BERT được tải thành công.
+Mô tả người dùng: Puff MIDI 22
+Đã lưu gợi ý sản phẩm vào recommended_products.
+Kết nối cơ sở dữ liệu thành công.
+Mô hình BERT được tải thành công.
+Mô tả người dùng: Puff MIDI Trắng,Kem Dễ thương,Thanh lịch Dạo phố Thu 22
+Đã lưu gợi ý sản phẩm vào recommended_products.
+Kết nối cơ sở dữ liệu thành công.
+Mô hình BERT được tải thành công.
+Mô tả người dùng: Puff MIDI Trắng,Kem Dễ thương Dạo phố Thu 22
+Đã lưu gợi ý sản phẩm vào recommended_products.
