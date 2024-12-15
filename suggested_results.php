@@ -49,10 +49,17 @@
             <button type="button" onclick="applyFilters()" class="apply-button">Áp dụng</button>
 
         </div>
-        <div class="product-list">
+        <div class="product-list suggest">
             <div class="heading">
-                <h1>Sản phẩm gợi ý theo</h1>
-                <h3 id="no-products-message" style="display: none;">Không tìm thấy sản phẩm phù hợp</h3>
+                <div>
+                    <h1>Sản phẩm gợi ý cho bạn</h1>
+                    <h3 id="no-products-message" style="display: none;">Không tìm thấy sản phẩm phù hợp</h3>
+                </div>
+                
+                <div style="margin-right: 3.5rem;">
+                    <a href="search_preferences.php"><i class="bi bi-caret-right-fill"></i>Gợi ý lại với thông tin mới</a>
+                </div>
+                
             </div>
             
             <div class="box-container" style="margin-top: -1rem;">

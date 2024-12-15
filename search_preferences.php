@@ -114,6 +114,7 @@
         // Lấy dữ liệu từ form và xử lý các trường hợp giá trị là "Tất cả" hoặc rỗng
         $chatlieu = isset($_POST['selected_products']) ? $_POST['selected_products'] : '';
         $color = isset($_POST['selected_colors']) ? $_POST['selected_colors'] : '';
+        $hoatiet = isset($_POST['hoatiet-select']) ? $_POST['hoatiet-select'] : '';
         $style = isset($_POST['selected_styles']) ? $_POST['selected_styles'] : '';
         $dip = isset($_POST['selected_dips']) ? $_POST['selected_dips'] : '';
         $season = isset($_POST['selected_season']) ? $_POST['selected_season'] : '';
@@ -122,6 +123,7 @@
         // Kiểm tra nếu giá trị là "Tất cả" hoặc không nhập thì gán giá trị 0
         $chatlieu = ($chatlieu === "Tất cả" || $chatlieu === '') ? 0 : $chatlieu;
         $color = ($color === "Tất cả" || $color === '') ? 0 : $color;
+        $hoatiet = ($hoatiet === "Tất cả" || $hoatiet === '') ? 0 : $hoatiet;
         $style = ($style === "Tất cả" || $style === '') ? 0 : $style;
         $dip = ($dip === "Tất cả" || $dip === '') ? 0 : $dip;
         $season = ($season === "Tất cả" || $season === '') ? 0 : $season;
@@ -139,6 +141,7 @@
                 $queryUpdate = "UPDATE user_preferences
                                 SET chatlieu = :chatlieu,
                                     color = :color,
+                                    hoatiet = :hoatiet,
                                     style = :style,
                                     dip = :dip,
                                     season = :season,
@@ -149,6 +152,7 @@
                     ':user_id' => $user_id,
                     ':chatlieu' => $chatlieu,
                     ':color' => $color,
+                    ':hoatiet' => $hoatiet,
                     ':style' => $style,
                     ':dip' => $dip,
                     ':season' => $season,
@@ -156,13 +160,14 @@
                 ]);
             } else {
                 // Nếu không tồn tại, thực hiện INSERT
-                $queryInsert = "INSERT INTO user_preferences (user_id, chatlieu, color, style, dip, season, tuoi)
-                                VALUES (:user_id, :chatlieu, :color, :style, :dip, :season, :tuoi)";
+                $queryInsert = "INSERT INTO user_preferences (user_id, chatlieu, color, hoatiet, style, dip, season, tuoi)
+                                VALUES (:user_id, :chatlieu, :color, :hoatiet, :style, :dip, :season, :tuoi)";
                 $stmtInsert = $conn->prepare($queryInsert);
                 $stmtInsert->execute([
                     ':user_id' => $user_id,
                     ':chatlieu' => $chatlieu,
                     ':color' => $color,
+                    ':hoatiet' => $hoatiet,
                     ':style' => $style,
                     ':dip' => $dip,
                     ':season' => $season,

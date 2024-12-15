@@ -21,28 +21,33 @@
 
     if (isset($_POST['cancel'])) {
         // Lấy thông tin từ bảng `bill` dựa vào `bill_id`
-        $select_orders = $conn->prepare("SELECT * FROM `bill` WHERE bill_id = ?");
-        $select_orders->execute([$get_id]);
-        
-        while ($fetch_order = $select_orders->fetch(PDO::FETCH_ASSOC)) {
-            $hoadon_id = $fetch_order['hoadon_id']; // Lấy `hoadon_id` từ bảng `bill`
-            $tinhtrangthanhtoan = $fetch_order['tinhtrangthanhtoan'];
-            $thongbao = $fetch_order['thongbao'];
-            $tiendagiam = $fetch_order['tiendagiam'];
-            // Tiếp tục lấy thông tin từ bảng `hoadon` dựa vào `hoadon_id`
-            $select_hoadon = $conn->prepare("SELECT * FROM `hoadon` WHERE hoadon_id = ?");
-            $select_hoadon->execute([$hoadon_id]);
-    
+    $select_orders = $conn->prepare("SELECT * FROM `bill` WHERE bill_id = ?");
+    $select_orders->execute([$get_id]);
+
+    $processed_hoadon_ids = []; // Mảng lưu các `hoadon_id` đã xử lý
+
+    while ($fetch_order = $select_orders->fetch(PDO::FETCH_ASSOC)) {
+        $hoadon_id = $fetch_order['hoadon_id']; // Lấy `hoadon_id` từ bảng `bill`
+
+        // Tiếp tục lấy thông tin từ bảng `hoadon` dựa vào `hoadon_id`
+        $select_hoadon = $conn->prepare("SELECT * FROM `hoadon` WHERE hoadon_id = ?");
+        $select_hoadon->execute([$hoadon_id]);
+
+        // Chỉ xử lý các sản phẩm từ `hoadon_id` đầu tiên
+        if (!in_array($hoadon_id, $processed_hoadon_ids)) {
+            $processed_hoadon_ids[] = $hoadon_id; // Đánh dấu `hoadon_id` đã xử lý
+
             while ($fetch_hoadon = $select_hoadon->fetch(PDO::FETCH_ASSOC)) {
                 $product_id = $fetch_hoadon['sanpham_id']; // Lấy mã sản phẩm
                 $qty = $fetch_hoadon['soluong']; // Lấy số lượng đã mua
                 $size = $fetch_hoadon['size']; // Lấy size sản phẩm
-    
+
                 // Cập nhật lại số lượng trong bảng `sanpham` theo `sanpham_id` và `size`
-                $update_qty_query = $conn->prepare("UPDATE `sanpham` SET $size = $size + ? WHERE sanpham_id = ?");
+                $update_qty_query = $conn->prepare("UPDATE `sanpham` SET `$size` = `$size` + ? WHERE sanpham_id = ?");
                 $update_qty_query->execute([$qty, $product_id]);
             }
         }
+    }
         if ($tiendagiam > 0){
             $sudung = 70;
             $update_user = $conn->prepare("UPDATE `user` SET diem = diem + ? WHERE user_id=?");

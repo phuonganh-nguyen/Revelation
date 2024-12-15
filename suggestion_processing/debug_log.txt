@@ -1,28 +1,466 @@
 Kết nối cơ sở dữ liệu thành công.
-Mô hình BERT được tải thành công.
-Mô tả người dùng: Tweed dạ Dạo phố Đông 22
-Đã lưu gợi ý sản phẩm vào recommended_products.
+Mô tả người dùng: Tơ,Cotton Trắng,Kem Tiểu thư,Dịu dàng Dạo phố,Đi chơi Xuân Trơn 22
+Đã chuẩn bị dữ liệu mô tả sản phẩm.
+12 sản phẩm có độ tương đồng cao nhất:
+User ID: abc5ABz, Product ID: V6F9H41N7H, Similarity: 0.487516245987617
+sanpham_id: V6F9H41N7H
+chatlieu_1: Tơ
+chatlieu_2: 0
+color_1: Kem
+color_2: 0
+style_1: Nữ tính
+style_2: Dịu dàng
+style_3: Thanh lịch
+dip_1: Dạo phố
+dip_2: Công sở
+dip_3: Đi chơi
+season_1: Xuân
+season_2: Hè
+season_3: Thu
+season_4: 0
+old_from: 18
+old_to: 35
+hoatiet: Trơn
+User ID: abc5ABz, Product ID: T8Y47UHPHU, Similarity: 0.4676453802684988
+sanpham_id: T8Y47UHPHU
+chatlieu_1: Cotton
+chatlieu_2: 0
+color_1: Be
+color_2: 0
+style_1: Tiểu thư
+style_2: Nhẹ nhàng
+style_3: Dịu dàng
+dip_1: Đi tiệc
+dip_2: Dạo phố
+dip_3: Hẹn hò
+season_1: Xuân
+season_2: Hè
+season_3: 0
+season_4: 0
+old_from: 20
+old_to: 35
+hoatiet: Hoa nhí
+User ID: abc5ABz, Product ID: 5W5DQ2J5PB, Similarity: 0.4255779553627679
+sanpham_id: 5W5DQ2J5PB
+chatlieu_1: Kate
+chatlieu_2: 0
+color_1: Trắng
+color_2: 0
+style_1: Nữ tính
+style_2: Tiểu thư
+style_3: 0
+dip_1: Đi chơi
+dip_2: Dạo phố
+dip_3: 0
+season_1: Xuân
+season_2: Hè
+season_3: 0
+season_4: 0
+old_from: 20
+old_to: 30
+hoatiet: Nơ
+User ID: abc5ABz, Product ID: L7OM6OQ771, Similarity: 0.3982048946078575
+sanpham_id: L7OM6OQ771
+chatlieu_1: Tơ
+chatlieu_2: 0
+color_1: Xanh đá
+color_2: 0
+style_1: Tiểu thư
+style_2: Nữ tính
+style_3: Thanh lịch
+dip_1: Đi tiệc
+dip_2: Đi chơi
+dip_3: Sự kiện
+season_1: Đông
+season_2: Xuân
+season_3: 0
+season_4: 0
+old_from: 20
+old_to: 30
+hoatiet: Trơn
+User ID: abc5ABz, Product ID: 7XZ9AQNG19, Similarity: 0.32092368710307007
+sanpham_id: 7XZ9AQNG19
+chatlieu_1: Linen
+chatlieu_2: 0
+color_1: Hồng
+color_2: 0
+style_1: Thanh lịch
+style_2: Nhẹ nhàng
+style_3: Tiểu thư
+dip_1: Công sở
+dip_2: Đi chơi
+dip_3: Sự kiện
+season_1: Xuân
+season_2: Thu
+season_3: 0
+season_4: 0
+old_from: 25
+old_to: 35
+hoatiet: Trơn
+User ID: abc5ABz, Product ID: 43LGENI5R9, Similarity: 0.3164934280134939
+sanpham_id: 43LGENI5R9
+chatlieu_1: Tơ
+chatlieu_2: 0
+color_1: Trắng
+color_2: 0
+style_1: Nữ tính
+style_2: Nhẹ nhàng
+style_3: Thanh lịch
+dip_1: Dạo phố
+dip_2: Công sở
+dip_3: Đi chơi
+season_1: Xuân
+season_2: Hè
+season_3: 0
+season_4: 0
+old_from: 18
+old_to: 35
+hoatiet: Trơn
+User ID: abc5ABz, Product ID: S5DVYJ64PF, Similarity: 0.31263828871245164
+sanpham_id: S5DVYJ64PF
+chatlieu_1: Poplin
+chatlieu_2: 0
+color_1: Xanh dương pastel
+color_2: 0
+style_1: Thanh lịch
+style_2: Nữ tính
+style_3: Tiểu thư
+dip_1: Công sở
+dip_2: Dạo phố
+dip_3: Đi chơi
+season_1: Xuân
+season_2: Hè
+season_3: 0
+season_4: 0
+old_from: 18
+old_to: 30
+hoatiet: Nơ
+User ID: abc5ABz, Product ID: Y57A7FSXXH, Similarity: 0.30706907255555344
+sanpham_id: Y57A7FSXXH
+chatlieu_1: Puff MIDI
+chatlieu_2: 0
+color_1: Hồng
+color_2: 0
+style_1: Tiểu thư
+style_2: Thanh lịch
+style_3: Sang trọng
+dip_1: Công sở
+dip_2: Dạo phố
+dip_3: Đi tiệc
+season_1: Đông
+season_2: Thu
+season_3: 0
+season_4: 0
+old_from: 18
+old_to: 30
+hoatiet: Trơn
+User ID: abc5ABz, Product ID: RF2BB9NKZJ, Similarity: 0.30291512271058485
+sanpham_id: RF2BB9NKZJ
+chatlieu_1: Poplin
+chatlieu_2: 0
+color_1: Trắng
+color_2: 0
+style_1: Thanh lịch
+style_2: Nữ tính
+style_3: Dịu dàng
+dip_1: Công sở
+dip_2: Dạo phố
+dip_3: 0
+season_1: Xuân
+season_2: Thu
+season_3: 0
+season_4: 0
+old_from: 20
+old_to: 35
+hoatiet: Trơn
+User ID: abc5ABz, Product ID: ZLW4Y5QWN2, Similarity: 0.2821760819811152
+sanpham_id: ZLW4Y5QWN2
+chatlieu_1: Tơ
+chatlieu_2: 0
+color_1: Ghi
+color_2: 0
+style_1: Nữ tính
+style_2: Thanh lịch
+style_3: Dịu dàng
+dip_1: Dạo phố
+dip_2: Công sở
+dip_3: 0
+season_1: Thu
+season_2: Xuân
+season_3: 0
+season_4: 0
+old_from: 20
+old_to: 35
+hoatiet: Hoa
+User ID: abc5ABz, Product ID: 8YNFYD3GSE, Similarity: 0.2786506921982569
+sanpham_id: 8YNFYD3GSE
+chatlieu_1: Taffeta
+chatlieu_2: 0
+color_1: Trắng
+color_2: 0
+style_1: Sang trọng
+style_2: Nữ tính
+style_3: Dịu dàng
+dip_1: Dạo phố
+dip_2: Đi chơi
+dip_3: Đi tiệc
+season_1: Xuân
+season_2: Hè
+season_3: Thu
+season_4: 0
+old_from: 18
+old_to: 35
+hoatiet: Nơ
+User ID: abc5ABz, Product ID: IF23KGJPP2, Similarity: 0.2750135681667804
+sanpham_id: IF23KGJPP2
+chatlieu_1: Cotton
+chatlieu_2: 0
+color_1: Xanh than
+color_2: Trắng
+style_1: Thanh lịch
+style_2: Thoải mái
+style_3: 0
+dip_1: Công sở
+dip_2: Dạo phố
+dip_3: Đi chơi
+season_1: Xuân
+season_2: Thu
+season_3: 0
+season_4: 0
+old_from: 20
+old_to: 30
+hoatiet: Trơn
+Đã lưu gợi ý sản phẩm vào bảng recommended_products.
 Kết nối cơ sở dữ liệu thành công.
-Mô hình BERT được tải thành công.
-Mô tả người dùng: Tweed dạ Đông 0
-Đã lưu gợi ý sản phẩm vào recommended_products.
-Kết nối cơ sở dữ liệu thành công.
-Mô hình BERT được tải thành công.
-Mô tả người dùng: Dạ Hồng Đông 0
-Đã lưu gợi ý sản phẩm vào recommended_products.
-Kết nối cơ sở dữ liệu thành công.
-Mô hình BERT được tải thành công.
-Mô tả người dùng: Len 22
-Đã lưu gợi ý sản phẩm vào recommended_products.
-Kết nối cơ sở dữ liệu thành công.
-Mô hình BERT được tải thành công.
-Mô tả người dùng: Puff MIDI 22
-Đã lưu gợi ý sản phẩm vào recommended_products.
-Kết nối cơ sở dữ liệu thành công.
-Mô hình BERT được tải thành công.
-Mô tả người dùng: Puff MIDI Trắng,Kem Dễ thương,Thanh lịch Dạo phố Thu 22
-Đã lưu gợi ý sản phẩm vào recommended_products.
-Kết nối cơ sở dữ liệu thành công.
-Mô hình BERT được tải thành công.
-Mô tả người dùng: Puff MIDI Trắng,Kem Dễ thương Dạo phố Thu 22
-Đã lưu gợi ý sản phẩm vào recommended_products.
+Mô tả người dùng: Puff MIDI Hồng pastel Thanh lịch Đi chơi Xuân Trơn 22
+Đã chuẩn bị dữ liệu mô tả sản phẩm.
+12 sản phẩm có độ tương đồng cao nhất:
+User ID: abc5ABz, Product ID: BW7ZJGEFRZ, Similarity: 0.4309133725779111
+sanpham_id: BW7ZJGEFRZ
+chatlieu_1: Puff MIDI
+chatlieu_2: 0
+color_1: Hồng
+color_2: 0
+style_1: Trẻ trung
+style_2: Thanh lịch
+style_3: Dễ thương
+dip_1: Công sở
+dip_2: Đi chơi
+dip_3: Dạo phố
+season_1: Xuân
+season_2: Hè
+season_3: 0
+season_4: 0
+old_from: 18
+old_to: 35
+hoatiet: Nơ
+User ID: abc5ABz, Product ID: Y57A7FSXXH, Similarity: 0.41085870190453316
+sanpham_id: Y57A7FSXXH
+chatlieu_1: Puff MIDI
+chatlieu_2: 0
+color_1: Hồng
+color_2: 0
+style_1: Tiểu thư
+style_2: Thanh lịch
+style_3: Sang trọng
+dip_1: Công sở
+dip_2: Dạo phố
+dip_3: Đi tiệc
+season_1: Đông
+season_2: Thu
+season_3: 0
+season_4: 0
+old_from: 18
+old_to: 30
+hoatiet: Trơn
+User ID: abc5ABz, Product ID: W5DUFNXMMT, Similarity: 0.3845676622875305
+sanpham_id: W5DUFNXMMT
+chatlieu_1: Puff MIDI
+chatlieu_2: 0
+color_1: Hồng
+color_2: 0
+style_1: Nhẹ nhàng
+style_2: Nữ tính
+style_3: Sang trọng
+dip_1: Công sở
+dip_2: Dạo phố
+dip_3: 0
+season_1: Thu
+season_2: Đông
+season_3: 0
+season_4: 0
+old_from: 25
+old_to: 35
+hoatiet: Trơn
+User ID: abc5ABz, Product ID: AE6WEHPY6J, Similarity: 0.38256482253424123
+sanpham_id: AE6WEHPY6J
+chatlieu_1: Puff MIDI
+chatlieu_2: 0
+color_1: Hồng
+color_2: 0
+style_1: Dễ thương
+style_2: Thanh lịch
+style_3: Nữ tính
+dip_1: Dạo phố
+dip_2: Công sở
+dip_3: Đi chơi
+season_1: Xuân
+season_2: Hè
+season_3: Thu
+season_4: 0
+old_from: 18
+old_to: 35
+hoatiet: Phối màu
+User ID: abc5ABz, Product ID: BH64MT4P3X, Similarity: 0.380968831895254
+sanpham_id: BH64MT4P3X
+chatlieu_1: Puff MIDI
+chatlieu_2: 0
+color_1: Xanh mint
+color_2: 0
+style_1: Nữ tính
+style_2: Thanh lịch
+style_3: Trẻ trung
+dip_1: Công sở
+dip_2: Dạo phố
+dip_3: Đi chơi
+season_1: Thu
+season_2: Đông
+season_3: 0
+season_4: 0
+old_from: 20
+old_to: 30
+hoatiet: Trơn
+User ID: abc5ABz, Product ID: J4TWGIMXEV, Similarity: 0.3696996066323104
+sanpham_id: J4TWGIMXEV
+chatlieu_1: Puff MIDI
+chatlieu_2: 0
+color_1: Xanh đá
+color_2: 0
+style_1: Nữ tính
+style_2: Thanh lịch
+style_3: Dịu dàng
+dip_1: Dạo phố
+dip_2: Công sở
+dip_3: 0
+season_1: Thu
+season_2: Xuân
+season_3: 0
+season_4: 0
+old_from: 20
+old_to: 35
+hoatiet: Trơn
+User ID: abc5ABz, Product ID: S9S13INTO7, Similarity: 0.33097622774682456
+sanpham_id: S9S13INTO7
+chatlieu_1: Puff MIDI
+chatlieu_2: Poplin
+color_1: Ghi
+color_2: 0
+style_1: Trẻ trung
+style_2: Nữ tính
+style_3: Thanh lịch
+dip_1: Công sở
+dip_2: Dạo phố
+dip_3: 0
+season_1: Thu
+season_2: Đông
+season_3: 0
+season_4: 0
+old_from: 20
+old_to: 35
+hoatiet: Trơn
+User ID: abc5ABz, Product ID: R66S9O7D9K, Similarity: 0.3307004526005766
+sanpham_id: R66S9O7D9K
+chatlieu_1: Voan
+chatlieu_2: 0
+color_1: Hồng pastel
+color_2: 0
+style_1: Trẻ trung
+style_2: Nữ tính
+style_3: Dịu dàng
+dip_1: Đi chơi
+dip_2: Dạo phố
+dip_3: Hẹn hò
+season_1: Xuân
+season_2: Hè
+season_3: 0
+season_4: 0
+old_from: 18
+old_to: 30
+hoatiet: Trơn
+User ID: abc5ABz, Product ID: JKIOFSPVXO, Similarity: 0.29041536853410954
+sanpham_id: JKIOFSPVXO
+chatlieu_1: Lụa
+chatlieu_2: Voan
+color_1: Hồng pastel
+color_2: 0
+style_1: Nữ tính
+style_2: Dịu dàng
+style_3: Nhẹ nhàng
+dip_1: Dạo phố
+dip_2: Đi chơi
+dip_3: Du lịch
+season_1: Xuân
+season_2: Thu
+season_3: 0
+season_4: 0
+old_from: 18
+old_to: 30
+hoatiet: Hoa
+User ID: abc5ABz, Product ID: 8I6JC2O1NH, Similarity: 0.28048129568228997
+sanpham_id: 8I6JC2O1NH
+chatlieu_1: Puff MIDI
+chatlieu_2: Poplin
+color_1: Xanh mint
+color_2: 0
+style_1: Nữ tính
+style_2: Hiện đại
+style_3: Thanh lịch
+dip_1: Dạo phố
+dip_2: Sự kiện
+dip_3: Đi tiệc
+season_1: Thu
+season_2: Đông
+season_3: 0
+season_4: 0
+old_from: 25
+old_to: 35
+hoatiet: Trơn
+User ID: abc5ABz, Product ID: W6AVYS52U1, Similarity: 0.26369631824854234
+sanpham_id: W6AVYS52U1
+chatlieu_1: Dạ
+chatlieu_2: Voan
+color_1: Hồng pastel
+color_2: Trắng
+style_1: Nữ tính
+style_2: Dịu dàng
+style_3: Thanh lịch
+dip_1: Công sở
+dip_2: Dạo phố
+dip_3: 0
+season_1: Thu
+season_2: Xuân
+season_3: Hè
+season_4: 0
+old_from: 20
+old_to: 35
+hoatiet: Nơ
+User ID: abc5ABz, Product ID: ZT2M2VJ2OT, Similarity: 0.251296111477441
+sanpham_id: ZT2M2VJ2OT
+chatlieu_1: Dạ
+chatlieu_2: 0
+color_1: Hồng
+color_2: 0
+style_1: Sang trọng
+style_2: Nữ tính
+style_3: Thanh lịch
+dip_1: Công sở
+dip_2: Đi tiệc
+dip_3: Đi chơi
+season_1: Thu
+season_2: Đông
+season_3: 0
+season_4: 0
+old_from: 22
+old_to: 35
+hoatiet: Trơn
+Đã lưu gợi ý sản phẩm vào bảng recommended_products.

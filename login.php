@@ -29,11 +29,20 @@
             } elseif ($row['vaitro'] == 'khach' && $row['is_verified'] != '1') {
                 $warning_msg[] = 'Tài khoản của bạn chưa được xác nhận. Vui lòng kiểm tra email để xác nhận tài khoản.';
             } elseif ($row['vaitro'] == 'kho') {
-                setcookie('kho_id', $row['user_id'], time() + 60*60*24*30, '/');
-                header('location: storekeeper/task.php');
+                if ($row['trangthai'] == 1) {
+                    setcookie('kho_id', $row['user_id'], time() + 60*60*24*30, '/');
+                    header('location: storekeeper/task.php');
+                } else {
+                    $warning_msg[] = 'Bạn không có quyền truy cập!';
+                }
+                
             } elseif ($row['vaitro'] == 'nhanvien') {
-                setcookie('nv_id', $row['user_id'], time() + 60*60*24*30, '/');
-                header('location: employee/employee_order.php');
+                if ($row['trangthai'] == 1) {
+                    setcookie('nv_id', $row['user_id'], time() + 60*60*24*30, '/');
+                    header('location: employee/employee_order.php');
+                } else {
+                    $warning_msg[] = 'Bạn không có quyền truy cập!';
+                }
             }
         } else {
             $warning_msg[] = 'Email hoặc mật khẩu không đúng';

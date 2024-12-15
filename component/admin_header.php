@@ -47,7 +47,7 @@
         <div class="navbar">
             <ul>
                 <li onclick="window.location.href='dashboard.php'"><i class="bi bi-house-door-fill" style="margin-right: .7rem;"></i>Trang chủ</li>
-                <li onclick="window.location.href='add_category.php'"><i class="bi bi-card-list" style="margin-right: .7rem;"></i>Danh mục</li>
+                <li onclick="window.location.href='show_categories.php'"><i class="bi bi-card-list" style="margin-right: .7rem;"></i>Danh mục</li>
                 <li onclick="window.location.href='add_product.php'"><i class="bi bi-bag-plus-fill" style="margin-right: .7rem;"></i>Thêm sản phẩm</li>
                 <li onclick="window.location.href='view_product.php'"><i class="bi bi-bag-check-fill" style="margin-right: .7rem;"></i>Sản phẩm đã thêm</li>
                 <li onclick="window.location.href='admin_order.php'"><i class="bi bi-receipt" style="margin-right: .7rem;"></i>Đơn hàng</li>

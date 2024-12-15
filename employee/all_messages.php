@@ -1,8 +1,8 @@
 <?php 
-//bao gồm một tệp PHP khác vào tệp hiện tại
+    //bao gồm một tệp PHP khác vào tệp hiện tại
     include '../component/connect.php';
-    if (isset($_COOKIE['user_id'])) {
-        $user_id = $_COOKIE['user_id'];
+    if (isset($_COOKIE['nv_id'])) {
+        $user_id = $_COOKIE['nv_id'];
     } else {
         $user_id = '';
         header('location:../login.php');
@@ -23,7 +23,7 @@
 </head>
 <body id="acc-page"> 
     <div class="main-container">
-        <?php include '../component/admin_header.php'; ?> 
+        <?php include '../component/employee_header.php'; ?> 
         <section class="user-container">
             <div class="heading-search">
                 <h1>Tin nhắn</h1>

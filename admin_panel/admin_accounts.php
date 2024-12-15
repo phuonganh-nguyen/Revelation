@@ -8,6 +8,29 @@
         header('location:../login.php');
     }
 
+    if (isset($_POST['change_status'])) {
+        $user_id = $_POST['user_id'];
+    
+        // Lấy trạng thái hiện tại của người dùng
+        $select_status = $conn->prepare("SELECT trangthai FROM user WHERE user_id = ?");
+        $select_status->execute([$user_id]);
+        $user = $select_status->fetch(PDO::FETCH_ASSOC);
+    
+        // Đổi trạng thái
+        if ($user['trangthai'] == 1) {
+            // Nếu đang hoạt động, thay đổi thành ngừng hoạt động
+            $update_status = $conn->prepare("UPDATE user SET trangthai = 0 WHERE user_id = ?");
+            $update_status->execute([$user_id]);
+        } else {
+            // Nếu ngừng hoạt động, thay đổi thành đang hoạt động
+            $update_status = $conn->prepare("UPDATE user SET trangthai = 1 WHERE user_id = ?");
+            $update_status->execute([$user_id]);
+        }
+    
+        // Sau khi thay đổi, chuyển hướng lại trang danh sách quản trị viên
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit();
+    }
 
 ?>
 
@@ -26,7 +49,7 @@
         <?php include '../component/admin_header.php'; ?> 
         <section class="user-container">
             <div class="heading-search">
-                <h1>Danh sách quản trị viên</h1>
+                <h1>Danh sách nhân viên</h1>
                 <form action="search_user.php" method="post" class="search-form"> 
                     <input type="text" name="search_user" placeholder="Tìm kiếm tài khoản" required maxlength="100">
                     <button type="submit" class="bi bi-search" id="search_product_btn"></button>
@@ -42,7 +65,8 @@
                                 <th>Tên</th>
                                 <th>Email</th>
                                 <th>Ngày tạo</th>
-                                <th>Vai trò</th> <!-- Cột mới cho vai trò -->
+                                <th>Vai trò</th>
+                                <th>Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,7 +86,26 @@
                                         <td style="text-transform: capitalize;"><?= $fetch_user['name']; ?></td>
                                         <td><?= $fetch_user['email']; ?></td>
                                         <td><?= $fetch_user['ngaytao']; ?></td> <!-- Ngày tạo -->
-                                        <td><?= $vaitro; ?></td> <!-- Hiển thị vai trò -->
+                                        <td><?= $vaitro; ?></td>
+                                        <td class="status-user">
+                                            <?php 
+                                                // Kiểm tra trạng thái của người dùng và hiển thị nút tương ứng
+                                                if ($fetch_user['trangthai'] == 1) {
+                                                    // Trạng thái đang hoạt động, hiển thị nút "Ngừng hoạt động"
+                                                    echo '<form method="POST">
+                                                            <input type="hidden" name="user_id" value="' . $fetch_user['user_id'] . '">
+                                                            <button type="submit" name="change_status">Vô hiệu hóa</button>
+                                                        </form>';
+                                                } else {
+                                                    // Trạng thái ngừng hoạt động, hiển thị nút "Đang hoạt động"
+                                                    echo '<form method="POST">
+                                                            <input type="hidden" name="user_id" value="' . $fetch_user['user_id'] . '">
+                                                            <button type="submit" name="change_status">Kích hoạt</button>
+                                                        </form>';
+                                                }
+                                            ?>
+                                        </td>
+ 
                                     </tr>
                                     <?php
                                 }

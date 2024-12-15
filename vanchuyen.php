@@ -70,7 +70,6 @@
     }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,19 +82,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
-    <?php include 'component/user_header.php' ?>
-    
-    <div class="checkout">
-    <div class="heading">
+    <?php include 'component/user_header.php' ?>   
+    <div class="checkout"   style="margin-top: -9rem;">
+        <div class="heading">
             <h1>Thông tin giao hàng</h1>
         </div>
-        <!-- <div class="container">
-            <div class="arrow-steps clearfix">
-                <div class="step current"> <span><a href="vanchuyen.php" >Thông tin giao hàng</a></span> </div>
-                <div class="step"> <span><a href="thongtinthanhtoan.php" >Thông tin thanh toán</a><span> </div>
-            </div>
-        </div> -->
-        
         <div class="row">
             <?php 
                 $select_shipping = $conn->prepare("SELECT * FROM `vanchuyen` WHERE user_id=?");

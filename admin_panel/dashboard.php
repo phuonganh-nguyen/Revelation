@@ -32,6 +32,16 @@
                 
                 <div class="box">
                     <?php 
+                        $select_message = $conn->prepare("SELECT * FROM `message`");
+                        $select_message->execute();
+                        $number_of_msg = $select_message->rowCount();
+                    ?>
+                    <h3><?= $number_of_msg; ?></h3>
+                    <p>Tin nhắn</p>
+                    <a href="admin_message.php" class="btn">Xem</a>
+                </div>
+                <div class="box">
+                    <?php 
                         $select_products = $conn->prepare("SELECT * FROM `sanpham` WHERE admin_id=?");
                         $select_products->execute([$user_id]);
                         $number_of_products = $select_products->rowCount();
@@ -64,6 +74,17 @@
                 </div>
                 <div class="box">
                     <?php 
+                        $select_orders = $conn->prepare("SELECT COUNT(*) AS total_orders FROM (SELECT DISTINCT bill_id FROM `bill`) AS unique_orders");
+                        $select_orders->execute();
+                        $result = $select_orders->fetch(PDO::FETCH_ASSOC);
+                        $number_of_orders = $result['total_orders'];
+                    ?>
+                    <h3><?= $number_of_orders; ?></h3>
+                    <p>Tổng số đơn hàng</p>
+                    <a href="admin_order.php" class="btn">Xem</a>
+                </div>
+                <div class="box">
+                    <?php 
                         $select_anhbst = $conn->prepare("SELECT * FROM `anhbst`");
                         $select_anhbst->execute();
                         $number_of_anhbst = $select_anhbst->rowCount();
@@ -90,29 +111,8 @@
                         $number_of_users = $select_users->rowCount();
                     ?>
                     <h3><?= $number_of_users; ?></h3>
-                    <p>Tài khoản Quản trị viên</p>
+                    <p>Tài khoản nhân viên</p>
                     <a href="admin_accounts.php" class="btn">Xem</a>
-                </div>
-                <div class="box">
-                    <?php 
-                        $select_orders = $conn->prepare("SELECT COUNT(*) AS total_orders FROM (SELECT DISTINCT bill_id FROM `bill`) AS unique_orders");
-                        $select_orders->execute();
-                        $result = $select_orders->fetch(PDO::FETCH_ASSOC);
-                        $number_of_orders = $result['total_orders'];
-                    ?>
-                    <h3><?= $number_of_orders; ?></h3>
-                    <p>Tổng số đơn hàng</p>
-                    <a href="admin_order.php" class="btn">Xem</a>
-                </div>
-                <div class="box">
-                    <?php 
-                        $select_message = $conn->prepare("SELECT * FROM `message`");
-                        $select_message->execute();
-                        $number_of_msg = $select_message->rowCount();
-                    ?>
-                    <h3><?= $number_of_msg; ?></h3>
-                    <p>Tin nhắn</p>
-                    <a href="admin_message.php" class="btn">Xem</a>
                 </div>
             </div>
 

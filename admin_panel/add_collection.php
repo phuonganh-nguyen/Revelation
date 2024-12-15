@@ -69,6 +69,9 @@ if (isset($_POST['publish'])) {
     <div class="main-container">
         <?php include '../component/admin_header.php'; ?>
         <section class="post-editor"> 
+            <div class="back">
+                <a href="show_collection.php"><i class="bi bi-caret-left-fill"></i>Trở về</a>
+            </div>
             <div class="heading">
                 <h1>Thêm bộ sưu tập</h1>
             </div>

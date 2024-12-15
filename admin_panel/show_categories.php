@@ -54,9 +54,6 @@ if (isset($_POST['delete_category'])) {
     <div class="main-container">
         <?php include '../component/admin_header.php'; ?>
         <section class="show-post">
-            <div class="back">
-                <a href="add_category.php"><i class="bi bi-caret-left-fill"></i>Trở về</a>
-            </div>
             <div class="heading" style="margin-bottom: 1rem;">
                 <h1>Tất cả danh mục</h1>
             </div>
@@ -86,7 +83,10 @@ if (isset($_POST['delete_category'])) {
                     }
                     ?>
                 </div>
-            </div> <!-- Kết thúc box-container -->
+            </div>
+            <div style="align-items: center; display: flex; justify-content: center;">
+                <a href="add_category.php" class="btn">Thêm danh mục</a>
+            </div>
         </section>
     </div>
 

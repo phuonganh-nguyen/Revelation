@@ -163,6 +163,8 @@
         }
         
     }
+
+    //Phần momo ở đây nha
     if (isset($_POST['momo'])) {
         $note = $_POST['note'];
         $hoadon_id = order_id();
@@ -245,7 +247,6 @@
     }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -260,19 +261,12 @@
 <body>
     <?php include 'component/user_header.php' ?>
     
-    <div class="checkout">
+    <div class="checkout" style="margin-top: -9rem;">
         <div class="heading">
             <h1>Thông tin thanh toán</h1>
         </div>
-        <!-- <div class="container">
-            <div class="arrow-steps clearfix">
-                <div class="step done"> <span><a href="vanchuyen.php" >Thông tin giao hàng</a></span> </div>
-                <div class="step current"> <span><a href="thongtinthanhtoan.php" >Thông tin thanh toán</a><span> </div>
-            </div>
-        </div> -->
-        
         <div class="row">   
-            <form action="" method="POST" class="register" style="margin-bottom: -1rem;">
+            <form action="" method="POST" class="register" style="margin-bottom: -3rem;">
                 <input type="hidden" name="p_id" value="<?= $get_id; ?>">
                 <!-- <h3>Thông tin thanh toán</h3> -->
                 <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -462,10 +456,10 @@
             // Tính phí vận chuyển tương ứng với loại hình vận chuyển được chọn
             switch (shippingType) {
                 case "Giao hàng tiết kiệm":
-                    shippingFee = 28700;
+                    shippingFee = 25000;
                     break;
                 case "Giao hàng nhanh":
-                    shippingFee = 35200;
+                    shippingFee = 30000;
                     break;
                 case "Giao hàng hỏa tốc":
                     shippingFee = 50000;

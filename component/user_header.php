@@ -71,9 +71,10 @@
             ?>
             <a href="cart.php"><i class="bi bi-bag-fill"></i><sup><?= $total_cart_items;?></sup></a>
             <!-- <a href="profile.php"><i class="fa-solid fa-user"></i></a> -->
-            <!-- <div class="bi bi-chat-dots-fill" id=""></div> -->
+            <a href="message.php"><i class="bi bi-chat-dots-fill"></i></a>
             <div class="bi bi-person-fill" id="user-btn"></div>
         </div>
+        
         <div class="profile-detail">
             <?php 
                 $select_profile = $conn->prepare("SELECT * FROM `user` WHERE user_id = ? AND vaitro = 'khach'");

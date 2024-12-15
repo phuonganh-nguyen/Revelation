@@ -9,7 +9,7 @@
     }
 
     if (isset($_POST['submit'])) {
-        $select_admin = $conn->prepare("SELECT * FROM `admin` WHERE admin_id=? LIMIT 1");
+        $select_admin = $conn->prepare("SELECT * FROM `user` WHERE user_id=? LIMIT 1");
         $select_admin->execute([$user_id]);
         $fetch_admin = $select_admin->fetch(PDO::FETCH_ASSOC);
 
@@ -19,19 +19,19 @@
 
         //name
         if (!empty($name)) {
-            $update_name = $conn->prepare("UPDATE `admin` SET name=? WHERE admin_id=?");
+            $update_name = $conn->prepare("UPDATE `user` SET name=? WHERE user_id=?");
             $update_name->execute([$name, $user_id]);
             $success_msg[] = 'Tên được cập nhật thành công';
         }
 
         //email
         if (!empty($email)) {
-            $select_email = $conn->prepare("SELECT * FROM `admin` WHERE admin_id=? AND email=?");
+            $select_email = $conn->prepare("SELECT * FROM `user` WHERE admin_id=? AND email=?");
             $select_email->execute([$user_id, $email]);
             if($select_email->rowCount()>0) {
                 $warning_msg[] = 'Email đã tồn tại';
             } else {
-                $update_email = $conn->prepare("UPDATE `admin` SET email=? WHERE admin_id=?");
+                $update_email = $conn->prepare("UPDATE `user` SET email=? WHERE user_id=?");
                 $update_email->execute([$email, $user_id]);
                 $success_msg[] = 'Email được cập nhật thành công';
             }
@@ -50,7 +50,7 @@
             } elseif ($newpass != $cpass) {
                 $warning_msg[] = 'Mật khẩu xác nhận không khớp';
             } else {
-                $update_pass = $conn->prepare("UPDATE `admin` SET pass=? WHERE admin_id=?");
+                $update_pass = $conn->prepare("UPDATE `user` SET pass=? WHERE user_id=?");
                 $update_pass->execute([$cpass, $user_id]);
                 $success_msg[] = 'Mật khẩu được cập nhật thành công';
             }

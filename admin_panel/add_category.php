@@ -11,21 +11,28 @@
     if (isset($_POST['submit'])) {
         $danhmuc_id = sp_id();
         $ten_danhmuc = $_POST['ten_danhmuc'];
-        
-        // hàm binary phân biệt dấu sắc hỏi ngã nặng
-        $select_type = $conn->prepare("SELECT * FROM `danhmuc` WHERE BINARY name = ?");
-        $select_type->execute([$ten_danhmuc]);
-
-        if ($select_type->rowCount() > 0) {
-            // Danh mục đã tồn tại, hiển thị thông báo
-            $warning_msg[] = 'Danh mục đã tồn tại';
+    
+        // Kiểm tra nếu danh mục không rỗng
+        if (!empty($ten_danhmuc)) {
+            // Hàm binary phân biệt dấu sắc hỏi ngã nặng
+            $select_type = $conn->prepare("SELECT * FROM `danhmuc` WHERE BINARY name = ?");
+            $select_type->execute([$ten_danhmuc]);
+            
+            if ($select_type->rowCount() > 0) {
+                // Danh mục đã tồn tại, hiển thị thông báo
+                $warning_msg[] = 'Danh mục đã tồn tại';
+            } else {
+                // Thêm danh mục mới vào cơ sở dữ liệu
+                $insert_type = $conn->prepare("INSERT INTO `danhmuc`(danhmuc_id, name) VALUES (?,?)");
+                $insert_type->execute([$danhmuc_id, $ten_danhmuc]);
+                header('location:show_categories.php');
+            }
         } else {
-            // Thêm danh mục mới vào cơ sở dữ liệu
-            $insert_type = $conn->prepare("INSERT INTO `danhmuc`(danhmuc_id, name) VALUES (?,?)");
-            $insert_type->execute([$danhmuc_id, $ten_danhmuc]);
-            header('location:show_categories.php'); 
+            // Hiển thị thông báo nếu danh mục rỗng
+            $warning_msg[] = 'Tên danh mục không được để trống';
         }
     }
+    
 ?>
 
 <!DOCTYPE html> 
@@ -43,6 +50,9 @@
     <div class="main-container">
         <?php include '../component/admin_header.php'; ?>
         <section class="post-editor"> 
+            <div class="back">
+                <a href="show_categories.php"><i class="bi bi-caret-left-fill"></i>Trở về</a>
+            </div>
             <div class="heading">
                 <h1>Thêm danh mục</h1>
             </div>
@@ -53,8 +63,8 @@
                         <input type="text" name="ten_danhmuc" maxlength="100" placeholder="Nhập tên danh mục" require class="box">
                     </div>
                     <div class="flex-btn">
-                        <input type="submit" name="submit" value="Thêm" class="btn" onclick="return confirm ('Thêm danh mục thành công!');">
-                        <a href="show_categories.php" class="btn">Xem danh mục đã thêm</a>
+                        <input type="submit" name="submit" value="Thêm" class="btn">
+                        
                     </div>
                 </form>
             </div>

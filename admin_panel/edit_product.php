@@ -380,7 +380,7 @@
                         
                         <div class="flex-btn">
                             <input type="submit" name="update" value="Cập nhật" class="btn">
-                            <input type="submit" name="delete_product" value="Xóa sản phẩm" class="btn">
+                            <input type="submit" name="delete_product" value="Xóa sản phẩm" class="btn"onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');">
     
                         </div>
                     </form>

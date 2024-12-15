@@ -1,1 +1,0 @@
-Python không trả về dữ liệu.

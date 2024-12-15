@@ -8,6 +8,7 @@
 
     include 'component/add_wishlist.php';
     include 'component/add_cart.php';
+    // include 'component/send_message.php';
 ?>
 
 <!DOCTYPE html>
@@ -25,15 +26,15 @@
     <?php include 'component/user_header.php'; ?>
     <!-- slider section star -->
     <!-- <div class="slider-container"> -->
-    <div class="hero">
+    <div class="hero" style="margin-top: -5rem;">
         <!-- <div class="textBox">
             <h1>Bộ sưu tập Cruise 2024</h1>
             <a href="https://eu.louisvuitton.com/eng-e1/stories/cruise-2024-collection?utm_source=youtube&utm_medium=social&utm_campaign=PUBL_CRUISE2024DROP2_YT_WW_ENG20240109_WOM_MULTI" class="btn">Khám phá ngay</a>
         </div> -->
-        <video autoplay loop muted plays-inline class="back-video">
-            <source src="images/Banner/final1.mp4" type="video/mp4">          
-        </video>
-        <!-- <img src="images/cruise2.jpg" class="back-video"> -->
+        <!-- <video autoplay loop muted plays-inline class="back-video">
+            <source src="images/Banner/bannerPA.jpg" type="video/mp4">          
+        </video> -->
+        <img src="images/Banner/bannerPA.jpg" class="back-video">
     </div> 
 
     
@@ -44,17 +45,17 @@
         <?php include 'new_product.php'; ?>
     </div>
     <div class="yoshi" style="margin-top: -4rem;">
-        <img src="images/Banner/mai2.jpg" class="back-video" >
+        <img src="images/Banner/mai2.jpg" class="back-video" loading="lazy">
         <!-- <a href="http://localhost/web/collection.php?id=12"><img src="images/Banner/mai2.jpg" class="back-video" ></a> -->
     </div>
     <div class="products-new" >
         <div class="heading" style="margin-top: -2.5rem; margin-bottom: 1rem;">
-            <h1>Sản phẩm bán chạy</h1>
+            <h1>Có thể bạn sẽ thích</h1>
         </div>
-        <?php include 'best_seller.php'; ?>
+        <?php include 'mightlike.php'; ?>
     </div>
     <div class="yoshi" style="margin-top: -4rem;">
-        <img src="images/Banner/tieuvy1.jpg" class="back-video" >
+        <img src="images/Banner/tieuvy1.jpg" class="back-video" loading="lazy">
         <a href="http://localhost/web/collection.php?id=13" class="btn">Khám phá ngay</a>
     </div>
     <?php include 'resume.php' ?> 

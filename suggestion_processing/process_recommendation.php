@@ -20,5 +20,5 @@ if ($output === null) {
 } else {
     header('location: ../suggested_results.php');
 }
-
 ?>
+

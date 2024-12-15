@@ -32,6 +32,26 @@
     $select_products = $conn->prepare("SELECT * FROM `sanpham` WHERE sanpham_id=?");
     $select_products->execute([$pid]);
     
+    date_default_timezone_set('Asia/Ho_Chi_Minh');
+    if (isset($_POST['send_mess'])) {
+        if (!empty($user_id)) {
+            $message = $_POST['product_id'];
+
+            // Kiểm tra nội dung tin nhắn
+            if (!empty($message)) {
+                // Lấy thời gian hiện tại theo múi giờ Việt Nam
+                $current_time = date('Y-m-d H:i:s');
+
+                $insert_message = $conn->prepare("INSERT INTO `send_message` (user_id, sanpham_id, ngaygui) VALUES (?, ?, ?)");
+                $insert_message->execute([$user_id, $message, $current_time]);
+                header('location:message.php');
+            } else {
+                $warning_msg[] = 'Vui lòng nhập nội dung tin nhắn!';
+            }
+        } else {
+            $warning_msg[] = 'Vui lòng đăng nhập!';
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -83,15 +103,20 @@
                         </ul>
                     </div>
                     <div class="icon">
+                        <p>
+                        <button type="submit" name="add_to_wishlist" style="font-size: 1rem; background-color: transparent;"><i class="bi bi-heart-fill"></i></button>    
+                            Đã bán: <?= $fetch_products['luotmua']; ?>
+                        </p>
+                        <p>
+                        <input type="hidden" name="product_id" value="<?= $fetch_products['sanpham_id']?>">
+                        <button type="submit" name="send_mess" style="font-size: 1rem; background-color: transparent; cursor: pointer;"><i class="bi bi-chat-dots-fill"></i> Tư vấn</button>    
+                            
+                        </p>
                         <!-- <p>Chia sẻ: 
                             <i class="bi bi-facebook"></i> 
                             <i class="bi bi-messenger"></i> 
                             <i class="bi bi-instagram"></i> 
                         </p> -->
-                        <p>
-                        <button type="submit" name="add_to_wishlist" style="font-size: 1rem; background-color: transparent;"><i class="bi bi-heart-fill"></i></button>    
-                            Đã bán: <?= $fetch_products['luotmua']; ?>
-                        </p>
                     </div>
                     
                      
@@ -126,7 +151,7 @@
                             }
                         ?>
                     </p>
-
+                    <p class="product-detail">Họa tiết: <?= $fetch_detail['hoatiet']; ?></p>
                     <p class="product-detail">Chất liệu: 
                         <?php 
                             echo trim($fetch_detail['chatlieu_1']);

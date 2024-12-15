@@ -2,9 +2,10 @@
 <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 <df-messenger
   intent="WELCOME"
-  chat-title="RÉVÉLATION"
+  chat-title="RéRobo"
   agent-id="3d3088a3-fa8e-443f-9899-ccf4524476b9"
   language-code="en"
+  chat-icon="images/robot.png"
 ></df-messenger>
     <div class="content">
         <div class="box">
@@ -32,4 +33,5 @@
             <h4>Bản quyền © 2024 SupperPA</h4>
         </div>
     </div>
+    
 </footer>

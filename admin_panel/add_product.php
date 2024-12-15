@@ -170,12 +170,12 @@
                     </div>
                     <div class="input-field">
                         <p>Tên sản phẩm<span>*</span></p>
-                        <input type="text" name="name" maxlength="100" placeholder="Nhập tên sản phẩm" require class="box">
+                        <input type="text" name="name" maxlength="100" placeholder="Nhập tên sản phẩm" required class="box">
                     </div>
                     
                     <div class="input-field">
                         <p>Xuất xứ<span>*</span></p>
-                        <input type="text" name="origin" maxlength="100" placeholder="Nhập nơi xuất xứ" require class="box">
+                        <input type="text" name="origin" maxlength="100" placeholder="Nhập nơi xuất xứ" required class="box">
                     </div>
 
                     <p>Chất liệu<span>*</span></p>
@@ -183,7 +183,7 @@
                         <div class="box">
                             <div class="input-field">
                                 <p>Chất liệu 1<span>*</span></p>
-                                <input type="text" name="chatlieu1" maxlength="100" placeholder="Nhập chất liệu" require class="box">
+                                <input type="text" name="chatlieu1" maxlength="100" placeholder="Nhập chất liệu" required class="box">
                             </div>    
                         </div>
                         <div class="box">
@@ -198,7 +198,7 @@
                         <div class="box">
                             <div class="input-field">
                                 <p>Màu sắc 1<span>*</span></p>
-                                <input type="text" name="color1" maxlength="100" placeholder="Nhập màu sắc" require class="box">
+                                <input type="text" name="color1" maxlength="100" placeholder="Nhập màu sắc" required class="box">
                             </div>    
                         </div>
                         <div class="box">
@@ -210,14 +210,14 @@
                     </div>
                     <div class="input-field">
                         <p>Họa tiết</p>
-                        <input type="text" name="hoatiet" maxlength="100" placeholder="Nhập họa tiết" class="box">                                 
+                        <input type="text" name="hoatiet" maxlength="100" placeholder="Nhập họa tiết" required class="box">                                 
                     </div>
                     <p>Phong cách<span>*</span></p>
                     <div class="flex">  
                         <div class="box">
                             <div class="input-field">
                                 <p>Phong cách 1<span>*</span></p>
-                                <input type="text" name="style1" maxlength="100" placeholder="Nhập phong cách" require class="box">
+                                <input type="text" name="style1" maxlength="100" placeholder="Nhập phong cách" required class="box">
                             </div>  
                             <div class="input-field">
                                 <p>Phong cách 2</p>
@@ -236,7 +236,7 @@
                         <div class="box">
                             <div class="input-field">
                                 <p>Dịp 1<span>*</span></p>
-                                <input type="text" name="dip1" maxlength="100" placeholder="Nhập dịp sử dụng" require class="box">
+                                <input type="text" name="dip1" maxlength="100" placeholder="Nhập dịp sử dụng" required class="box">
                             </div>  
                             <div class="input-field">
                                 <p>Dịp 2</p>
@@ -255,7 +255,7 @@
                         <div class="box">
                             <div class="input-field">
                                 <p>Mùa thích hợp 1<span>*</span></p>
-                                <input type="text" name="season1" maxlength="100" placeholder="Nhập mùa thích hợp" require class="box">
+                                <input type="text" name="season1" maxlength="100" placeholder="Nhập mùa thích hợp" required class="box">
                             </div>  
                             <div class="input-field">
                                 <p>Mùa thích hợp 2</p>
@@ -276,17 +276,17 @@
                     <div class="input-field">
                         <p>Độ tuổi phù hợp<span>*</span></p>
                         <div style="display: flex; gap: 15px;">
-                            <input type="number" name="age_from" placeholder="Từ" class="box" style="flex: 1;">
-                            <input type="number" name="age_to" placeholder="Đến" class="box" style="flex: 1;">
+                            <input type="number" name="age_from" placeholder="Từ" class="box" required style="flex: 1;">
+                            <input type="number" name="age_to" placeholder="Đến" class="box" required style="flex: 1;">
                         </div>
                     </div>
                     <div class="input-field">
                         <p>Chi tiết sản phẩm<span>*</span></p>
-                        <textarea name="description" require maxlength="1000" placeholder="Nhập chi tiết sản phẩm" require class="box"></textarea>
+                        <textarea name="description" require maxlength="1000" placeholder="Nhập chi tiết sản phẩm" required class="box"></textarea>
                     </div>
                     <div class="input-field">
                         <p>Ảnh tổng quan<span>*</span></p>
-                        <input type="file" name="background" accept="image/*" require class="box">
+                        <input type="file" name="background" accept="image/*" required class="box">
 
                     </div>
                     <div class="input-field">

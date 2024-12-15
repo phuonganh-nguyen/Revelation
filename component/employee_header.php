@@ -44,7 +44,8 @@
         <div class="navbar">
             <ul>
                 <!-- <li onclick="window.location.href='../admin_panel/dashboard.php'"><i class="bi bi-house-door-fill" style="margin-right: .7rem;"></i>Trang chủ</li> -->
-                <li onclick="window.location.href='employee_order.php'"><i class="bi bi-receipt" style="margin-right: .7rem;"></i>Đơn hàng</li>   
+                <li onclick="window.location.href='employee_order.php'"><i class="bi bi-receipt" style="margin-right: .7rem;"></i>Đơn hàng</li>     
+                <li onclick="window.location.href='all_messages.php'"><i class="bi bi-chat-dots-fill" style="margin-right: .7rem;"></i>Tin nhắn</li> 
                 <li onclick="window.location.href='all_reviews.php'"><i class="bi bi-pen-fill" style="margin-right: .7rem;"></i>Đánh giá</li>
             </ul> 
         </div>
